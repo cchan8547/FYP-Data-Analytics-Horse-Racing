@@ -38,7 +38,8 @@ Large HTML caches, repeated PDF-page QA renders, temporary Python bytecode, and 
 - Contains actual empirical analysis, not a proposed-work-only placeholder.
 - LaTeX source: `02_Analysis_Project/report/main.tex` and the numbered section files.
 - Bibliography: `02_Analysis_Project/report/references.bib`
-- Student name, student ID, supervisor, department/programme, and institution remain bracketed placeholders because they were never supplied.
+- The user-supplied PDF identifies Chan Hui Man (23087426D), supervisor Prof. Cedric Yiu, and AMA; its institution and submission-deadline lines were removed in this revision.
+- This PDF is the authoritative revised report. The LaTeX source remains the earlier reproducible baseline and still contains identity placeholders and administrative wording removed from the PDF, so rebuilding that source will not reproduce the supplied revision exactly.
 
 ### Presentation
 
@@ -233,7 +234,7 @@ cd 02_Analysis_Project/report
 tectonic main.tex
 ```
 
-The report was built with Tectonic. Before submission, replace identity placeholders and inspect the rebuilt PDF.
+The earlier report baseline was built with Tectonic. The current authoritative PDF is a later user-supplied revision and is not byte-identical to a rebuild from this source. Before a future rebuild, reconcile the identity fields and the report wording—especially Appendix C—with the supplied PDF, and inspect the resulting document rather than overwriting the authoritative PDF blindly.
 
 ### Run the money-flow tests and synthetic demo
 
