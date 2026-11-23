@@ -34,7 +34,6 @@ Large HTML caches, repeated PDF-page QA renders, temporary Python bytecode, and 
 - File: `01_Report/Horse_Racing_Capstone_Interim_Report.pdf`
 - Language: English
 - Length: 37 pages
-- Report date: 24 November 2026
 - Contains actual empirical analysis, not a proposed-work-only placeholder.
 - Explicitly positions the report at the end of Semester 1 of a full-year Year 4 FYP and specifies the Semester 2 model-upgrade, evaluation, and presentation programme.
 - LaTeX source: `02_Analysis_Project/report/main.tex` and the numbered section files.
@@ -266,7 +265,7 @@ For continuous race-day collection, use `--interval 60 --max-polls 0`; stop with
 
 - Interim report due: **26 November 2026 at 15:00**.
 - Submit PDF or Word through the Final Year Project System.
-- Filename pattern: `(Your Name) (Student ID)_Capstone Interim report.xxx`.
+- Submission filename: `ChanHuiMan23087426D_Capstone Interim report.pdf`.
 - Upload through Blackboard for Turnitin; stated acceptable similarity is 30%.
 - Allow time for Turnitin generation.
 - Submit a separate signed declaration form.
