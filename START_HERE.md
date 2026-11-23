@@ -1,6 +1,6 @@
 # Data Analytics for Horse Racing — FYP Project Handover
 
-**Handover prepared:** 23 November 2026  
+**Handover updated:** 24 November 2026
 **Project:** Final Year Project / capstone  
 **Main topic:** Hong Kong horse-racing probability prediction and WIN-betting evaluation  
 **Current extension:** Timestamped WIN-odds collection and approximate horse-level money-flow reconstruction
@@ -19,7 +19,7 @@ The empirical report and slides have already been completed and checked. The mon
 
 | Path | Contents |
 |---|---|
-| `01_Report/` | Final 34-page interim report PDF. |
+| `01_Report/` | Current 37-page Semester 1 interim report PDF. |
 | `02_Analysis_Project/` | LaTeX source, collection and analysis scripts, raw and engineered data, result tables, and figures. |
 | `03_Presentation/` | Editable 14-slide `.pptd` deck: ten timed main slides plus four Q&A backup slides, with page source and chart assets. |
 | `04_Money_Flow_Prototype/` | Read-only public odds/pool collector, offline processing, synthetic example, tests, outputs, and its own detailed README. |
@@ -33,13 +33,14 @@ Large HTML caches, repeated PDF-page QA renders, temporary Python bytecode, and 
 
 - File: `01_Report/Horse_Racing_Capstone_Interim_Report.pdf`
 - Language: English
-- Length: 34 pages
-- Report date: 19 November 2026
+- Length: 37 pages
+- Report date: 24 November 2026
 - Contains actual empirical analysis, not a proposed-work-only placeholder.
+- Explicitly positions the report at the end of Semester 1 of a full-year Year 4 FYP and specifies the Semester 2 model-upgrade, evaluation, and presentation programme.
 - LaTeX source: `02_Analysis_Project/report/main.tex` and the numbered section files.
 - Bibliography: `02_Analysis_Project/report/references.bib`
-- The user-supplied PDF identifies Chan Hui Man (23087426D), supervisor Prof. Cedric Yiu, and AMA; its institution and submission-deadline lines were removed in this revision.
-- This PDF is the authoritative revised report. The LaTeX source remains the earlier reproducible baseline and still contains identity placeholders and administrative wording removed from the PDF, so rebuilding that source will not reproduce the supplied revision exactly.
+- The synchronized report identifies Chan Hui Man (23087426D), supervisor Prof. Cedric Yiu, and AMA; its institution and submission-deadline lines are omitted from the cover.
+- This PDF is the authoritative compiled report. The LaTeX source contains the same revised content and identity fields, with no draft placeholders or administrative appendix.
 
 ### Presentation
 
@@ -206,9 +207,10 @@ Live odds-field semantics remain unverified against an active market. Do not for
 1. **Resolve information timing and executability.** Final archived odds may not have been observable at the simulated betting time.
 2. **Validate live odds semantics and synchronization.** On an active race day, compare GraphQL values, official pages, source timestamps, and subsequent official dividends.
 3. **Add rolling-origin evaluation.** The current interim design has only one validation season and one test season.
-4. **Run a small prespecified feature/model ablation.** Do not freely search the test set for a preferred result.
-5. **Reassess betting only with chronologically frozen rules and genuinely new data.**
-6. Add money-flow features only after the live collection and approximation have been validated; keep them separate from the current baseline until then.
+4. **Fit the prespecified market-anchored shrinkage upgrade.** Estimate its weight using training and rolling validation only, and test whether the trained model contributes stable incremental information.
+5. **Run controlled learner tuning and a small prespecified feature ablation.** Use matched feature sets where appropriate; do not freely search the test set for a preferred result.
+6. **Reassess betting only with chronologically frozen rules and genuinely new data.**
+7. Add money-flow features only after the live collection and approximation have been validated; keep them separate from the current baseline until then.
 
 Other acknowledged limitations: left-censored histories, simplified non-finish mechanisms, and incomplete sectional, equipment, trackwork, veterinary, weather, and related information.
 
@@ -234,7 +236,7 @@ cd 02_Analysis_Project/report
 tectonic main.tex
 ```
 
-The earlier report baseline was built with Tectonic. The current authoritative PDF is a later user-supplied revision and is not byte-identical to a rebuild from this source. Before a future rebuild, reconcile the identity fields and the report wording—especially Appendix C—with the supplied PDF, and inspect the resulting document rather than overwriting the authoritative PDF blindly.
+The report is built with Tectonic from the synchronized LaTeX source. A rebuild may not be byte-identical because PDF metadata can change, but its content should match the authoritative PDF. Inspect the rebuilt document before replacing the delivered PDF.
 
 ### Run the money-flow tests and synthetic demo
 

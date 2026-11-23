@@ -1,7 +1,7 @@
 \section{Interim Empirical Results}\label{sec:results}
 
 \subsection{Predictive performance on validation and test seasons}\label{sec:results-prediction}
-Table~\ref{tab:model-metrics} reports the complete validation and test comparison after temperature calibration. The uniform benchmark has test log loss 2.51622, while the market attains 2.03209. Fundamental models lie between these references: fundamental logit attains 2.24708 and fundamental LightGBM 2.24613. Their top-one strike rates are 22.85\% and 23.43\%, respectively, compared with 11.95\% for uniform and 28.65\% for market. This answers RQ1 provisionally: historical features contain substantial predictive information, but the constructed fundamental specifications remain well behind final market prices on the untouched season.
+Table~\ref{tab:model-metrics} reports the complete validation and test comparison after temperature calibration. The uniform benchmark has test log loss 2.51622, while the market attains 2.03209. Fundamental models lie between these references: fundamental logit attains 2.24708 and fundamental LightGBM 2.24613. Their top-one strike rates are 22.85\% and 23.43\%, respectively, compared with 11.95\% for the deterministic first-listed uniform tie-break and 28.65\% for market. The corresponding expected random-uniform rate is 8.16\%, so the 11.95\% entry is retained only as a reproducible tie-break diagnostic. This answers RQ1 provisionally: historical features contain substantial predictive information, but the constructed fundamental specifications remain well behind final market prices on the untouched season.
 
 Adding market variables closes almost all of that gap. Combined logit has validation log loss 2.00168, the lowest among the four trained candidates, and is therefore the primary trained model. Its test log loss is 2.03177, only 0.000328 below the market value, and its top-one rate is 29.35\%, 0.696 percentage points above the market/favourite rate. Combined LightGBM performs slightly worse at 2.04694. The validation result also warns against overstatement: calibrated market log loss is 1.98864, better than every trained candidate, including combined logit. Thus the main finding is approximate market equivalence on test, not a consistent forecasting advantage.
 
@@ -14,15 +14,15 @@ Adding market variables closes almost all of that gap. Combined logit has valida
 \toprule
 \textbf{Model} & \textbf{Validation LL} & \textbf{Test LL} & \textbf{Test Brier} & \textbf{Test top-one} & \textbf{Test ECE} & \textbf{Test AUC} \\
 \midrule
-Uniform & 2.49199 & 2.51622 & 0.91845 & 11.95\% & 0.00000 & 0.53248 \\
+Uniform$^{\mathrm{a}}$ & 2.49199 & 2.51622 & 0.91845 & 11.95\% & 0.00000 & 0.53248 \\
 Market & \textbf{1.98864} & 2.03209 & \textbf{0.81882} & 28.65\% & 0.00573 & 0.79187 \\
 Fundamental logit & 2.20062 & 2.24708 & 0.86938 & 22.85\% & 0.00672 & 0.72515 \\
-Fundamental LightGBM & 2.21361 & 2.24613 & 0.86923 & 23.43\% & \textbf{0.00325} & 0.72504 \\
+Fundamental LightGBM & 2.21361 & 2.24613 & 0.86923 & 23.43\% & 0.00325 & 0.72504 \\
 Combined logit & \underline{2.00168} & \textbf{2.03177} & 0.81946 & \textbf{29.35\%} & 0.00574 & \textbf{0.79198} \\
 Combined LightGBM & 2.01057 & 2.04694 & 0.82213 & 28.54\% & 0.00663 & 0.78802 \\
 \bottomrule
 \end{tabular}
-\source{Bold test entries indicate the best numerical value; the underlined validation entry identifies the primary trained candidate. Market is a benchmark, not a trained candidate. Lower LL, Brier, and ECE are better; higher top-one and AUC are better.}
+\source{Bold test entries indicate the best numerical LL, Brier, top-one, and AUC values; no ECE entry is bolded because small bin-level differences are sampling-sensitive. The underlined validation entry identifies the primary trained candidate. $^{\mathrm{a}}$Uniform top-one uses horse-number tie-breaking; it is not a random-pick strike rate. Lower LL, Brier, and ECE are better; higher top-one and AUC are better.}
 \end{table}
 
 \begin{figure}[htbp]
@@ -32,6 +32,8 @@ Combined LightGBM & 2.01057 & 2.04694 & 0.82213 & 28.54\% & 0.00663 & 0.78802 \\
 \end{figure}
 
 Paired meeting-bootstrap intervals reinforce the cautious interpretation. For combined logit minus market, the test log-loss difference is $-0.000328$ with 95\% interval $[-0.008867,0.008288]$. The Brier difference is $+0.000650$ with interval $[-0.002300,0.003498]$, and the top-one difference is $+0.696$ percentage points with interval $[-0.692,2.100]$ points. All three intervals include zero. Combined LightGBM's log-loss difference is $+0.01484$ with interval $[0.00098,0.02900]$, indicating a small disadvantage relative to the market under this resampling analysis. Fundamental-model disadvantages are much larger and their intervals are clearly above zero for log loss.
+
+The width of the primary log-loss interval also limits what can be learned. Its average half-width implies a rough standard error of 0.0044; under a simple normal approximation, 80\% power for a two-sided 5\% test corresponds to an effect near $(1.96+0.84)\times0.0044\approx0.012$ log-loss units. This is only an approximate power calculation, but it shows why the test should be described as having limited resolution for small improvements rather than as proof of exact market equivalence.
 
 \begin{table}[htbp]
 \centering
@@ -50,7 +52,7 @@ Top-one strike rate & $+0.696$ pp & $[-0.692,\ 2.100]$ pp & No resolved differen
 \end{table}
 
 \subsection{Calibration and reliability}\label{sec:results-calibration}
-Global ECE values are small in absolute terms, ranging from 0.00325 for fundamental LightGBM to 0.00672 for fundamental logit among the non-degenerate models. Figure~\ref{fig:reliability} shows why these summaries should still be accompanied by bin-level inspection. Market, combined-logit, and fundamental-LightGBM probabilities broadly follow the diagonal, but deviations vary across the probability range. In the highest market decile, for example, mean predicted probability is 30.08\% and observed frequency is 28.44\%; in the preceding decile, prediction is 15.70\% and observation 16.73\%. A single global temperature cannot remove all such local differences.
+Global ECE values are small in absolute terms, ranging from 0.00325 for fundamental LightGBM to 0.00672 for fundamental logit among the non-degenerate models. They should not be finely ranked: with approximately 1,076 runners per test decile, approximate binomial calculations using the fitted probabilities give expected absolute sampling deviations around 0.005--0.006 even before any systematic miscalibration is considered. Figure~\ref{fig:reliability} therefore needs bin-level uncertainty rather than visual inspection alone. Market, combined-logit, and fundamental-LightGBM probabilities broadly follow the diagonal, but deviations vary across the probability range. In the highest market decile, mean predicted probability is 30.08\% and observed frequency is 28.44\%; the difference is only about 1.2 binomial standard errors. A single global temperature cannot remove local differences, but these data also do not establish that every visible deviation is structural.
 
 The reliability curves also show that the fundamental model is not uninformative. Its probabilities span a useful range and track observed frequencies approximately, despite weaker log loss and discrimination than the market. This pattern is consistent with information that is genuinely predictive but already largely incorporated into prices. The near-unit combined-logit temperature (1.00260) suggests that its validation likelihood required negligible global sharpening or softening. By contrast, the market temperature of 0.91977 sharpens normalized market probabilities. These are global parameters fitted on one validation season, so their stability across alternative periods remains a final-stage question.
 
@@ -74,7 +76,7 @@ The combined model is dominated by final market variables: log WIN odds contribu
 \subsection{Odds-band calibration and unconditional returns}\label{sec:results-odds}
 Before examining model-selected bets, it is useful to ask whether simple price bands already show strong market patterns. Figure~\ref{fig:odds-bands} compares mean normalized market probability with observed win frequency and reports ROI from betting HK\$10 on every runner in each test-season odds band. The two probability series are generally close in low and middle bands. At odds above 100, however, only one of 796 runners wins: the observed rate is 0.126\%, compared with a mean normalized market probability of 0.593\%, and the band ROI is $-80.1\%$. One sparse bin cannot establish a stable structural bias, but it illustrates the danger of indiscriminate longshot betting.
 
-Every displayed odds band has a negative unconditional ROI in the test season. The losses range from $-12.1\%$ for displayed odds 50.1--100 to $-80.1\%$ above 100; favourites at odds 1.0--2.0 lose 17.7\%, and the 2.1--4.0 band loses 16.9\%. These outcomes do not reproduce a simple claim that favourites always offer favourable value, nor do they prove a universal favourite--longshot law. They are one-season empirical frequencies subject to sampling variation and official-dividend rounding. They do, however, establish a demanding baseline for any claim that a model has found exploitable prices.
+Every displayed odds band has a negative unconditional ROI in the test season. The losses range from $-12.1\%$ for displayed odds 50.1--100 to $-80.1\%$ above 100; favourites at odds 1.0--2.0 lose 17.7\%, and the 2.1--4.0 band loses 16.9\%. Under the normalized-market reference in Equation~\eqref{eq:market-roi-null}, an unconditional flat bet has expected ROI near $-18.5\%$. The every-runner result of $-23.55\%$ is about five percentage points below that reference, but this one-season descriptive gap is not independent proof of a favourite--longshot effect. These outcomes do not reproduce a simple claim that favourites always offer favourable value, nor do they prove a universal favourite--longshot law. They are empirical frequencies subject to sampling variation and official-dividend rounding. They do, however, establish a demanding baseline for any claim that a model has found exploitable prices.
 
 \begin{figure}[htbp]
 \centering
@@ -83,7 +85,7 @@ Every displayed odds band has a negative unconditional ROI in the test season. T
 \end{figure}
 
 \subsection{Prespecified betting evaluation}\label{sec:results-betting}
-The primary combined-logit value rule qualifies in 127 of 862 test races, spread across 68 meetings. It stakes HK\$1,270 and returns a net profit of HK\$91, corresponding to ROI 7.17\%. The strike rate is 14.17\%, mean displayed odds are 9.51, and maximum drawdown is HK\$287. Although the point estimate is positive, the meeting-cluster 95\% ROI interval is $[-49.56\%,77.19\%]$. Only 18 of the 127 selections win, so a small number of payouts materially affects the result. The appropriate conclusion is that the interim data are compatible with both meaningful gains and substantial losses, not that a profitable system has been demonstrated.
+The primary combined-logit value rule qualifies in 127 of 862 test races, spread across 68 meetings. It stakes HK\$1,270 and returns a net profit of HK\$91, corresponding to ROI 7.17\%. The strike rate is 14.17\%, mean displayed odds are 9.51, and maximum drawdown is HK\$287. Although the point estimate is positive, the meeting-cluster 95\% ROI interval is $[-49.56\%,77.19\%]$, which contains both the zero-profit reference and the approximate $-18.5\%$ normalized-market reference. Only 18 of the 127 selections win, so a small number of payouts materially affects the result. The appropriate conclusion is that the interim data are compatible with both meaningful gains and substantial losses, not that a profitable system or an incremental edge over the market has been demonstrated.
 
 Alternative strategies are generally negative. Betting the primary model's top-probability runner in every race produces 29.35\% winners but loses HK\$1,399 on HK\$8,620 staked (ROI $-16.23\%$). This is less negative than the favourite-every-race ROI of $-19.94\%$, but both lose money. Combined-LightGBM value betting loses 2.12\% over 481 bets; fundamental-logit and fundamental-LightGBM value rules lose 31.85\% and 14.32\%, respectively. Betting every runner loses HK\$25,342.50 on HK\$107,600 staked (ROI $-23.55\%$). The contrast between top-one accuracy and negative return directly supports the project's separation of probability quality and economic value.
 

@@ -27,7 +27,7 @@ Historical predictors are constructed only from prior races. For each horse, dis
 \widetilde{w}_{et}=\frac{W_{et}+\alpha/12}{N_{et}+\alpha},
 \label{eq:smoothed-rate}
 \end{equation}
-with analogous place and mean-finish estimates centred at 0.25 and 0.5, respectively. The smoothing strengths $(\alpha_{\mathrm{win}},\alpha_{\mathrm{place}},\alpha_{\mathrm{finish}})$ are $(24,24,16)$ for horses, $(12,12,8)$ for distance/course records, $(60,60,40)$ for jockeys, and $(80,80,50)$ for trainers.
+with analogous place and mean-finish estimates centred at 0.25 and 0.5, respectively. The smoothing strengths $(\alpha_{\mathrm{win}},\alpha_{\mathrm{place}},\alpha_{\mathrm{finish}})$ are $(24,24,16)$ for horses, $(12,12,8)$ for distance/course records, $(60,60,40)$ for jockeys, and $(80,80,50)$ for trainers. The $1/12$ centre is a deliberately simple prior rather than a field-size-adaptive estimate; a sensitivity check using race-specific $1/n_r$ centring is reserved for Semester 2.
 
 \begin{table}[htbp]
 \centering
@@ -69,7 +69,7 @@ For ordinary races with one observed winner $w_r$, the conditional-logit paramet
 \end{equation}
 The optimization uses analytically derived gradients and L-BFGS-B. Numerical stability is obtained by subtracting the maximum score within each race before exponentiation. Numeric predictors are median-imputed and standardized using statistics fitted on training data only. Separate fundamental and combined preprocessors ensure that the combined market column does not alter the scaling of fundamental variables.
 
-The ridge penalty is selected from $\{0.0001,0.001,0.01,0.1\}$ by validation race log loss. The selected values are 0.1 for the fundamental specification and 0.01 for the combined specification. Only the validation season informs this choice. The resulting models are then applied to the test season without refitting on validation outcomes, keeping the evaluation straightforward to audit. A future extension can refit on training plus validation after all design decisions are frozen, but the interim results deliberately retain the original train-only fitted models.
+The ridge penalty is selected from $\{0.0001,0.001,0.01,0.1\}$ by validation race log loss. The selected values are 0.1 for the fundamental specification and 0.01 for the combined specification. The fundamental choice lies at the upper grid boundary, so the grid will be extended before the final model is frozen. Only the validation season informs the interim choice. The resulting models are then applied to the test season without refitting on validation outcomes, keeping the evaluation straightforward to audit. A future extension can refit on training plus validation after all design decisions are frozen, but the interim results deliberately retain the original train-only fitted models.
 
 \subsection{LightGBM estimation and model selection}\label{sec:methods-lgbm}
 The LightGBM comparator uses a binary log-loss objective with 350 trees, learning rate 0.025, 15 leaves, minimum child size 100, feature fraction 0.85, subsample fraction 0.9, L1 regularization 0.2, and L2 regularization 5.0. Runner weights equal $1/n_r$, so each race contributes equal total weight despite varying field sizes. Numeric missing values receive training medians and categorical variables use training-fitted one-hot encoding. Predicted binary scores are clipped to $[10^{-12},1-10^{-12}]$ and normalized within each race before evaluation. This is a pragmatic adaptation, not a claim that the binary booster optimizes conditional race likelihood directly.
@@ -82,14 +82,14 @@ Temperature scaling adjusts an existing race probability vector using one positi
 p_{ri}(T)=\frac{p_{ri}^{1/T}}{\sum_{j=1}^{n_r}p_{rj}^{1/T}}.
 \label{eq:temperature}
 \end{equation}
-For $T<1$ the distribution becomes sharper; for $T>1$ it becomes softer. The optimal $\log T$ is obtained by bounded one-dimensional minimization of validation winner log loss, with $\log T\in[-1.5,1.5]$, and then applied unchanged to test predictions. Fitted temperatures are 0.91977 for market, 0.93338 for fundamental logit, 0.92458 for fundamental LightGBM, 1.00260 for combined logit, and 0.97968 for combined LightGBM. The near-unit value for combined logit indicates almost no global calibration adjustment.
+For $T<1$ the distribution becomes sharper; for $T>1$ it becomes softer. The optimal $\log T$ is obtained by bounded one-dimensional minimization of validation winner log loss, with $\log T\in[-1.5,1.5]$, and then applied unchanged to test predictions. Fitted temperatures are 0.91977 for market, 0.93338 for fundamental logit, 0.92458 for fundamental LightGBM, 1.00260 for combined logit, and 0.97968 for combined LightGBM. The near-unit value for combined logit indicates almost no global calibration adjustment. Consequently, every non-uniform validation score is partly in-sample with respect to its temperature; the conditional-logit validation scores additionally reflect validation-based penalty and primary-model selection. The untouched test comparison, rather than the validation ranking alone, is therefore the relevant evidence for generalization.
 
 Let $y_{ri}=\mathbf{1}\{i=w_r\}$. The principal predictive metrics are
 \begin{align}
 \mathrm{LL}&=-\frac{1}{R}\sum_{r=1}^{R}\log p_{rw_r}, \label{eq:logloss}\\
 \mathrm{Brier}&=\frac{1}{R}\sum_{r=1}^{R}\sum_{i=1}^{n_r}(p_{ri}-y_{ri})^2. \label{eq:brier}
 \end{align}
-Lower values are better for both. Top-one strike rate is the proportion of races in which the maximum-probability runner wins. Runner-level expected calibration error (ECE) uses ten within-model quantile bins and weights $|\bar p_b-\bar y_b|$ by bin count. Reliability diagrams display the same bin means. Runner-level ROC AUC is reported as a secondary discrimination statistic, but it is not a proper race score: unequal field sizes mean even uniform within-race probabilities need not have AUC 0.5. Similarly, uniform ECE can be mechanically zero when bins coincide with field sizes, so neither statistic is interpreted in isolation.
+Lower values are better for both. Top-one strike rate is the proportion of races in which the maximum-probability runner wins, with horse number used for deterministic tie-breaking. For the uniform benchmark this produces a first-listed diagnostic rather than a random-pick strike rate; the expected random-uniform rate is $R^{-1}\sum_r 1/n_r$, equal to 8.16\% on the test season. Runner-level expected calibration error (ECE) uses ten within-model quantile bins and weights $|\bar p_b-\bar y_b|$ by bin count. Reliability diagrams display the same bin means. Runner-level ROC AUC is reported as a secondary discrimination statistic, but it is not a proper race score: unequal field sizes mean even uniform within-race probabilities need not have AUC 0.5. Uniform ECE can be exactly zero when quantile bins group complete field sizes, because aggregate predicted probability and winner frequency then coincide within each group. Neither statistic is interpreted in isolation.
 
 \subsection{WIN-betting rules and exact settlement}\label{sec:methods-betting}
 For decimal odds $d_{ri}$, the model-implied expected gross-profit multiple per unit stake is
@@ -99,7 +99,23 @@ For decimal odds $d_{ri}$, the model-implied expected gross-profit multiple per 
 \end{equation}
 The prespecified primary value rule considers runners with $\widehat{EV}_{ri}>0.05$ and $d_{ri}\leq30$, then places one HK\$10 stake on the runner with the largest expected value in each qualifying race. If no runner qualifies, no bet is placed. Comparator strategies bet on the maximum-probability runner in every race, the lowest-odds favourite in every race, and every runner in every race. Value strategies are also reported for the other trained models. Horse number breaks favourite ties, and deterministic sorting makes all selections reproducible.
 
+The rule can also be expressed relative to the market. For a general edge threshold $\tau$,
+\begin{equation}
+p_{ri}d_{ri}-1>\tau
+\quad\Longleftrightarrow\quad
+\frac{p_{ri}}{q_{ri}}>(1+\tau)O_r.
+\label{eq:value-ratio}
+\end{equation}
+Thus $\tau=0.05$ requires a model-to-market probability ratio above approximately $1.05\times1.227=1.29$ in a typical race. Selection is concentrated where the model strongly disagrees with the market, so estimation error can create a winner's-curse risk. The threshold grid is therefore diagnostic only; it cannot establish that a larger threshold improves future returns.
+
 Winning bets are settled using the official HKJC WIN dividend $D_{ri}$ for a HK\$10 unit, not by assuming that rounded odds reproduce the payout exactly. Net profit is $D_{ri}-10$ for a winning selection and $-10$ otherwise. Total ROI is total net profit divided by total stakes. This automatically incorporates the pool economics reflected in official dividends. The HKJC guide states an 82.5\% dividend percentage for local WIN pools and describes conditional rebates for sufficiently large losing tickets\cite{hkjcguide}; no rebate is assumed in the conservative flat-stake analysis. Maximum drawdown is the greatest decline from a previous cumulative-profit peak, including zero as the initial capital reference.
+
+Two reference questions are kept distinct. A zero-ROI reference asks whether a strategy is absolutely profitable. By contrast, if normalized market probabilities were the true probabilities, the expected unit ROI at displayed odds would be
+\begin{equation}
+E_q[ROI\mid r]=q_{ri}d_{ri}-1=\frac{1}{O_r}-1.
+\label{eq:market-roi-null}
+\end{equation}
+The race-weighted mean of this quantity is approximately $-18.5\%$ on the test season. It is a market-efficiency reference, not a replacement for the zero-profit question. The empirical mean overround of about 1.227 implies a reciprocal near 81.5\%, rather than exactly 82.5\%. These quantities need not coincide: the former is computed from rounded or truncated displayed odds, whereas the official percentage describes pool dividends and actual settlement can differ from displayed-odds multiplication.
 
 \subsection{Uncertainty and reproducibility controls}\label{sec:methods-uncertainty}
 ROI confidence intervals use 3,000 meeting-cluster bootstrap resamples. All bets on one calendar meeting form a cluster; cluster indices are drawn with replacement, and paired profits and stakes are summed before each ROI is calculated. This preserves dependence and varying bet counts within meetings. Predictive comparisons against the market use 5,000 paired meeting-cluster resamples of race-level log-loss, Brier-loss, and top-one differences. Intervals are percentile intervals. They quantify sampling instability under this resampling scheme, not model-selection uncertainty, execution uncertainty, or a guarantee about future seasons.
