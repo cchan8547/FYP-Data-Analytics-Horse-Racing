@@ -1,0 +1,65 @@
+pageType: final
+background: {type: solid, color: "$navy"}
+elements:
+  - {elementId: gold-edge, elementType: shape, bounds: [0, 0, 12, 540], shapeName: rect, fill: {type: solid, color: "$gold"}}
+  - elementId: section
+    elementType: text
+    bounds: [56, 28, 480, 18]
+    content: {fontSize: 10, color: "$gold", bold: true, letterSpacing: 1.2, wrap: false, text: "07 / CONCLUSION + NEXT STEPS"}
+  - elementId: timing
+    elementType: text
+    bounds: [850, 28, 62, 18]
+    content: {fontSize: 11, color: "#B8C8CF", bold: true, align: [right, middle], wrap: false, text: "0:30"}
+  - elementId: title
+    elementType: text
+    bounds: [56, 70, 800, 90]
+    content:
+      fontSize: 38
+      color: "$white"
+      bold: true
+      lineHeight: 1.15
+      text: |
+        The contribution is an auditable framework;
+        betting claims remain unresolved.
+  - elementId: answers-label
+    elementType: text
+    bounds: [56, 184, 510, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "ANSWERS TO THE FOUR RESEARCH QUESTIONS"}
+  - elementId: answers
+    elementType: text
+    bounds: [56, 218, 535, 215]
+    content:
+      fontSize: 16
+      color: "#E7EEF1"
+      lineHeight: 1.35
+      text: |
+        <p><span style="color:$gold"><strong>RQ1</strong></span> · Fundamental features are informative, but materially weaker than final prices.</p>
+        <p style="margin-top:10px"><span style="color:$gold"><strong>RQ2</strong></span> · Probabilities are approximately calibrated; local deviations remain.</p>
+        <p style="margin-top:10px"><span style="color:$gold"><strong>RQ3</strong></span> · Combined Logit is market-comparable; incremental forecasting advantage is inconclusive.</p>
+        <p style="margin-top:10px"><span style="color:$gold"><strong>RQ4</strong></span> · +7.17% ROI rests on 127 bets and a wide interval; robust profitability is unsupported.</p>
+  - {elementId: next-divider, elementType: shape, bounds: [628, 184, 1, 249], shapeName: rect, fill: {type: solid, color: "#557488"}}
+  - elementId: next-label
+    elementType: text
+    bounds: [665, 184, 247, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "FINAL-STAGE PRIORITIES"}
+  - elementId: next
+    elementType: text
+    bounds: [665, 218, 247, 199]
+    content:
+      fontSize: 15
+      color: "#E7EEF1"
+      lineHeight: 1.35
+      text: |
+        <p>Rolling-origin evaluation across successive periods</p>
+        <p style="margin-top:10px">Longer histories and explicit non-finish indicators</p>
+        <p style="margin-top:10px">Timestamped prices, information cutoff, and slippage scenarios</p>
+        <p style="margin-top:10px">A small prespecified model and feature-ablation study</p>
+  - {elementId: closing-rule, elementType: shape, bounds: [56, 459, 856, 1], shapeName: rect, fill: {type: solid, color: "#557488"}}
+  - elementId: questions
+    elementType: text
+    bounds: [56, 477, 260, 34]
+    content: {fontSize: 25, color: "$gold", bold: true, wrap: false, text: "Questions"}
+  - elementId: backup-note
+    elementType: text
+    bounds: [660, 484, 252, 18]
+    content: {fontSize: 11, color: "#B8C8CF", align: [right, middle], wrap: false, text: "Four evidence slides follow for Q&A  ·  10 / 14"}

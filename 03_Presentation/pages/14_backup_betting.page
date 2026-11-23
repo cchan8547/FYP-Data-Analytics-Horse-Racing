@@ -1,0 +1,109 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$grey", bold: true, letterSpacing: 1.2, wrap: false, text: "BACKUP 4 / BETTING LEDGER"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 830, 43]
+    content: {style: "$title", wrap: false, text: "All test strategies settled with official WIN dividends"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: betting-table
+    elementType: table
+    bounds: [48, 118, 864, 341]
+    columnWidths: [0.30, 0.09, 0.14, 0.14, 0.11, 0.11, 0.11]
+    rowHeights: [0.14, 0.086, 0.086, 0.086, 0.086, 0.086, 0.086, 0.086, 0.086, 0.086, 0.086]
+    style: "$metrics"
+    rows:
+      - - {text: "Strategy"}
+        - {text: "Bets"}
+        - {text: "Stake HK$"}
+        - {text: "Profit HK$"}
+        - {text: "ROI"}
+        - {text: "Strike"}
+        - {text: "Max DD HK$"}
+      - - {text: "Fundamental Logit value"}
+        - {text: "833"}
+        - {text: "8,330"}
+        - {text: "−2,653.00"}
+        - {text: "−31.85%"}
+        - {text: "5.52%"}
+        - {text: "3,035.50"}
+      - - {text: "Fundamental Logit top pick"}
+        - {text: "862"}
+        - {text: "8,620"}
+        - {text: "−2,103.50"}
+        - {text: "−24.40%"}
+        - {text: "22.85%"}
+        - {text: "2,171.00"}
+      - - {text: "Fundamental LightGBM value"}
+        - {text: "840"}
+        - {text: "8,400"}
+        - {text: "−1,203.00"}
+        - {text: "−14.32%"}
+        - {text: "6.19%"}
+        - {text: "2,755.00"}
+      - - {text: "Fundamental LightGBM top pick"}
+        - {text: "862"}
+        - {text: "8,620"}
+        - {text: "−1,391.00"}
+        - {text: "−16.14%"}
+        - {text: "23.43%"}
+        - {text: "1,763.50"}
+      - - {text: "Combined Logit value", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "127", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "1,270", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "+91.00", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "+7.17%", bold: true, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "14.17%", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "287.00", fill: {type: solid, color: "#DCEEE8"}}
+      - - {text: "Combined Logit top pick"}
+        - {text: "862"}
+        - {text: "8,620"}
+        - {text: "−1,399.00"}
+        - {text: "−16.23%"}
+        - {text: "29.35%"}
+        - {text: "1,525.00"}
+      - - {text: "Combined LightGBM value"}
+        - {text: "481"}
+        - {text: "4,810"}
+        - {text: "−102.00"}
+        - {text: "−2.12%"}
+        - {text: "12.89%"}
+        - {text: "529.50"}
+      - - {text: "Combined LightGBM top pick"}
+        - {text: "862"}
+        - {text: "8,620"}
+        - {text: "−1,482.50"}
+        - {text: "−17.20%"}
+        - {text: "28.54%"}
+        - {text: "1,760.00"}
+      - - {text: "Favourite every race"}
+        - {text: "862"}
+        - {text: "8,620"}
+        - {text: "−1,718.50"}
+        - {text: "−19.94%"}
+        - {text: "28.65%"}
+        - {text: "1,718.50"}
+      - - {text: "Every runner"}
+        - {text: "10,760"}
+        - {text: "107,600"}
+        - {text: "−25,342.50"}
+        - {text: "−23.55%"}
+        - {text: "8.01%"}
+        - {text: "—"}
+  - elementId: ledger-note
+    elementType: text
+    bounds: [48, 469, 864, 19]
+    content: {fontSize: 12, color: "$ink", wrap: false, text: "Only the primary value rule has a positive point estimate; its 95% ROI interval is −49.56% to +77.19%. DD = maximum drawdown."}
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 509, 760, 14]
+    content: {style: "$source", wrap: false, text: "Source: betting_summary.csv. Flat HK$10 stakes; no rebate; every-runner strategy has no meeting-cluster interval or drawdown summary."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "14 / 14"}

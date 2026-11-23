@@ -1,0 +1,97 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$grey", bold: true, letterSpacing: 1.2, wrap: false, text: "BACKUP 2 / PAIRED UNCERTAINTY"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 830, 43]
+    content: {style: "$title", wrap: false, text: "Paired test differences against the calibrated market"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: interval-table
+    elementType: table
+    bounds: [48, 118, 864, 337]
+    columnWidths: [0.22, 0.14, 0.18, 0.31, 0.15]
+    rowHeights: [0.13, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725, 0.0725]
+    style: "$metrics"
+    rows:
+      - - {text: "Model", fontSize: 11}
+        - {text: "Metric", fontSize: 11}
+        - {text: "Difference", fontSize: 11}
+        - {text: "95% paired interval", fontSize: 11}
+        - {text: "Includes zero?", fontSize: 11}
+      - - {text: "Fundamental Logit", fontSize: 11}
+        - {text: "Log loss", fontSize: 11}
+        - {text: "+0.214983", fontSize: 11}
+        - {text: "[+0.170234, +0.260564]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Fundamental Logit", fontSize: 11}
+        - {text: "Brier", fontSize: 11}
+        - {text: "+0.050562", fontSize: 11}
+        - {text: "[+0.037306, +0.063952]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Fundamental Logit", fontSize: 11}
+        - {text: "Top-one (pp)", fontSize: 11}
+        - {text: "−5.80", fontSize: 11}
+        - {text: "[−9.12, −2.53]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Fundamental LightGBM", fontSize: 11}
+        - {text: "Log loss", fontSize: 11}
+        - {text: "+0.214035", fontSize: 11}
+        - {text: "[+0.167856, +0.260613]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Fundamental LightGBM", fontSize: 11}
+        - {text: "Brier", fontSize: 11}
+        - {text: "+0.050418", fontSize: 11}
+        - {text: "[+0.036758, +0.064291]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Fundamental LightGBM", fontSize: 11}
+        - {text: "Top-one (pp)", fontSize: 11}
+        - {text: "−5.22", fontSize: 11}
+        - {text: "[−8.31, −2.19]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Combined Logit", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "Log loss", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "−0.000328", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "[−0.008867, +0.008288]", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "Yes", fontSize: 11, bold: true, fill: {type: solid, color: "#DCEEE8"}}
+      - - {text: "Combined Logit", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "Brier", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "+0.000650", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "[−0.002300, +0.003498]", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "Yes", fontSize: 11, bold: true, fill: {type: solid, color: "#DCEEE8"}}
+      - - {text: "Combined Logit", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "Top-one (pp)", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "+0.70", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "[−0.69, +2.10]", fontSize: 11, fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "Yes", fontSize: 11, bold: true, fill: {type: solid, color: "#DCEEE8"}}
+      - - {text: "Combined LightGBM", fontSize: 11}
+        - {text: "Log loss", fontSize: 11}
+        - {text: "+0.014841", fontSize: 11}
+        - {text: "[+0.000977, +0.029003]", fontSize: 11}
+        - {text: "No", fontSize: 11}
+      - - {text: "Combined LightGBM", fontSize: 11}
+        - {text: "Brier", fontSize: 11}
+        - {text: "+0.003315", fontSize: 11}
+        - {text: "[−0.000887, +0.007564]", fontSize: 11}
+        - {text: "Yes", fontSize: 11}
+      - - {text: "Combined LightGBM", fontSize: 11}
+        - {text: "Top-one (pp)", fontSize: 11}
+        - {text: "−0.12", fontSize: 11}
+        - {text: "[−2.19, +2.05]", fontSize: 11}
+        - {text: "Yes", fontSize: 11}
+  - elementId: sign-note
+    elementType: text
+    bounds: [48, 466, 864, 20]
+    content: {fontSize: 12, color: "$ink", wrap: false, text: "Difference = model − market. Negative log-loss/Brier differences are better; positive top-one differences are better. pp = percentage points."}
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 509, 760, 14]
+    content: {style: "$source", wrap: false, text: "Source: predictive_comparison_intervals.csv; 5,000 paired meeting-cluster bootstrap resamples on the 2025/26 test season."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "12 / 14"}

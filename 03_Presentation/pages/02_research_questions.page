@@ -1,0 +1,105 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$teal", bold: true, letterSpacing: 1.2, wrap: false, text: "01 / RESEARCH FRAME"}
+  - elementId: timing
+    elementType: text
+    bounds: [850, 18, 62, 18]
+    content: {fontSize: 11, color: "$grey", bold: true, align: [right, middle], wrap: false, text: "0:45"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 830, 43]
+    content: {style: "$title", wrap: false, text: "Two questions: can we predict, and should we bet?"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: finding-label
+    elementType: text
+    bounds: [48, 124, 330, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1.1, wrap: false, text: "INTERIM FINDING"}
+  - elementId: finding
+    elementType: text
+    bounds: [48, 157, 352, 190]
+    content:
+      fontSize: 30
+      color: "$navy"
+      bold: true
+      lineHeight: 1.17
+      text: |
+        Market-comparable prediction; no robust evidence of a repeatable WIN-betting edge.
+  - {elementId: finding-rule, elementType: shape, bounds: [48, 371, 82, 5], shapeName: rect, fill: {type: solid, color: "$gold"}}
+  - elementId: finding-note
+    elementType: text
+    bounds: [48, 392, 344, 62]
+    content:
+      fontSize: 16
+      color: "$ink"
+      lineHeight: 1.3
+      text: |
+        The market is treated as a serious benchmark, not as an inconvenience to ignore.
+  - {elementId: rq-divider, elementType: shape, bounds: [435, 124, 1, 330], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: rq1-no
+    elementType: text
+    bounds: [470, 126, 48, 28]
+    content: {fontSize: 20, color: "$teal", bold: true, wrap: false, text: "RQ1"}
+  - elementId: rq1
+    elementType: text
+    bounds: [530, 123, 382, 57]
+    content:
+      fontSize: 17
+      color: "$ink"
+      lineHeight: 1.25
+      text: "How well do historical runner, connection, and race variables predict winners without odds?"
+  - {elementId: rq1-line, elementType: shape, bounds: [470, 186, 442, 1], shapeName: rect, fill: {type: solid, color: "#D8DEDA"}}
+  - elementId: rq2-no
+    elementType: text
+    bounds: [470, 202, 48, 28]
+    content: {fontSize: 20, color: "$teal", bold: true, wrap: false, text: "RQ2"}
+  - elementId: rq2
+    elementType: text
+    bounds: [530, 200, 382, 50]
+    content:
+      fontSize: 17
+      color: "$ink"
+      lineHeight: 1.25
+      text: "Are the within-race probabilities calibrated on a later season?"
+  - {elementId: rq2-line, elementType: shape, bounds: [470, 260, 442, 1], shapeName: rect, fill: {type: solid, color: "#D8DEDA"}}
+  - elementId: rq3-no
+    elementType: text
+    bounds: [470, 276, 48, 28]
+    content: {fontSize: 20, color: "$teal", bold: true, wrap: false, text: "RQ3"}
+  - elementId: rq3
+    elementType: text
+    bounds: [530, 273, 382, 55]
+    content:
+      fontSize: 17
+      color: "$ink"
+      lineHeight: 1.25
+      text: "Does adding market information improve over fundamental models—and over the market itself?"
+  - {elementId: rq3-line, elementType: shape, bounds: [470, 337, 442, 1], shapeName: rect, fill: {type: solid, color: "#D8DEDA"}}
+  - elementId: rq4-no
+    elementType: text
+    bounds: [470, 353, 48, 28]
+    content: {fontSize: 20, color: "$teal", bold: true, wrap: false, text: "RQ4"}
+  - elementId: rq4
+    elementType: text
+    bounds: [530, 350, 382, 76]
+    content:
+      fontSize: 17
+      color: "$ink"
+      lineHeight: 1.25
+      text: "Can a prespecified expected-value rule produce robust flat-stake WIN returns after pool effects?"
+  - elementId: scope
+    elementType: text
+    bounds: [470, 445, 442, 24]
+    content: {fontSize: 12, color: "$grey", wrap: false, text: "Scope: Hong Kong local WIN · Sha Tin + Happy Valley"}
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 509, 760, 14]
+    content: {style: "$source", wrap: false, text: "Source: capstone interim analysis; empirical status as of 19 November 2026."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "02 / 14"}

@@ -1,0 +1,107 @@
+\section{Analytical Methodology}\label{sec:methods}
+
+\subsection{Within-race probability framework}\label{sec:methods-probability}
+Let race $r$ contain $n_r$ starters and let $x_{ri}$ denote the feature vector for runner $i$. A model produces a nonnegative raw score $a_{ri}$, which is converted into a probability distribution over the field by
+\begin{equation}
+p_{ri}=\Pr(Y_r=i\mid x_{r1},\ldots,x_{rn_r})
+=\frac{a_{ri}}{\sum_{j=1}^{n_r}a_{rj}},
+\qquad \sum_{i=1}^{n_r}p_{ri}=1.
+\label{eq:race-probability}
+\end{equation}
+For the conditional-logit specifications, $a_{ri}=\exp(s_{ri})$ and $s_{ri}=x_{ri}^{\top}\beta$. For LightGBM, $a_{ri}$ is the clipped binary-classifier output followed by the same race-wise normalization. This common output contract allows all models and benchmarks to be evaluated using identical race metrics and betting rules.
+
+Two transparent benchmarks anchor the analysis. The uniform benchmark sets $p_{ri}=1/n_r$. The market benchmark uses displayed decimal WIN odds $d_{ri}$ to compute
+\begin{equation}
+q_{ri}=\frac{1/d_{ri}}{\sum_{j=1}^{n_r}1/d_{rj}},
+\qquad
+O_r=\sum_{j=1}^{n_r}\frac{1}{d_{rj}},
+\label{eq:market-probability}
+\end{equation}
+where $O_r$ is the race overround. The quantity $q_{ri}$ is a normalized implied probability, not an assumption that odds reveal the true probability exactly. All non-uniform probability vectors, including the market benchmark, receive the same validation-fitted temperature adjustment described below. Because temperature transformation is monotonic within a race, it changes log loss and calibration but not top-one selections.
+
+\subsection{Predictor engineering and leakage prevention}\label{sec:methods-features}
+The fundamental specification contains 36 runner-level variables representing recent form, longer-run performance, connections, race-relative physical conditions, changes from the previous observed start, and draw interactions. Table~\ref{tab:feature-groups} summarizes the groups. LightGBM additionally receives race-level context and categorical variables; these are excluded from conditional logit when they are constant for every runner in a race because such constants cancel from Equation~\eqref{eq:race-probability}. The combined conditional logit adds $\log q_{ri}$. Combined LightGBM adds $\log q_{ri}$, $\log d_{ri}$, market rank, and overround. Thus no fundamental model indirectly receives an odds-derived variable.
+
+Historical predictors are constructed only from prior races. For each horse, distance-specific horse record, course-specific horse record, jockey, and trainer, results are first aggregated to entity--race level. This step is essential when a trainer or jockey has multiple mounts in one race: expanding runner rows before aggregation could allow one runner's current outcome to contaminate another runner's predictor. Cumulative totals are then shifted before being merged back to the race--runner panel. For entity $e$ at chronological race $t$, define prior mounts $N_{et}$ and prior wins $W_{et}$ by sums over races strictly before $t$. A smoothed historical win rate is
+\begin{equation}
+\widetilde{w}_{et}=\frac{W_{et}+\alpha/12}{N_{et}+\alpha},
+\label{eq:smoothed-rate}
+\end{equation}
+with analogous place and mean-finish estimates centred at 0.25 and 0.5, respectively. The smoothing strengths $(\alpha_{\mathrm{win}},\alpha_{\mathrm{place}},\alpha_{\mathrm{finish}})$ are $(24,24,16)$ for horses, $(12,12,8)$ for distance/course records, $(60,60,40)$ for jockeys, and $(80,80,50)$ for trainers.
+
+\begin{table}[htbp]
+\centering
+\caption{Feature groups and their intended information}\label{tab:feature-groups}
+\small
+\begin{tabularx}{\textwidth}{L{3.2cm} Y L{3.8cm}}
+\toprule
+\textbf{Group} & \textbf{Representative variables} & \textbf{Availability and processing} \\
+\midrule
+Horse career history & Log prior starts, smoothed win/place rates, mean finishing percentile, days since previous start, first observed-start indicator & Prior races only; first observed start is not asserted to be the horse's true lifetime debut. \\
+\addlinespace
+Recent form & Last finishing percentile, last-three mean finish, last-three win rate & Shifted before rolling calculations; non-finish codes receive worst percentile. \\
+\addlinespace
+Context records & Distance- and course-specific starts, win/place rates, and mean finish & Entity--race aggregation and chronological shift; stronger smoothing for sparse records. \\
+\addlinespace
+Jockey and trainer & Log prior mounts, win/place rates, mean finish & Same-race mounts aggregated before shifting to prevent cross-runner leakage. \\
+\addlinespace
+Race-relative condition & Carried-weight and body-weight deviations from race mean; normalized draw and squared draw & Current race-card information; no result fields used. \\
+\addlinespace
+Changes and interactions & Weight, body-weight, distance, and class changes; draw interactions with sprint, Happy Valley, and all-weather racing & Changes use the previous observed start; interactions allow context-specific draw association. \\
+\addlinespace
+Additional LightGBM context & Field size, distance, class score, course, surface, going, class name, course configuration & Median-imputed numerics and training-fitted one-hot encoding. \\
+\addlinespace
+Combined-only market inputs & Log normalized market probability; additionally log odds, market rank, and overround for LightGBM & Computed from final odds of all starters; excluded from every fundamental specification. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Conditional-logit estimation}\label{sec:methods-logit}
+For ordinary races with one observed winner $w_r$, the conditional-logit parameters minimize a race-averaged negative log likelihood with ridge regularization:
+\begin{equation}
+\widehat{\beta}
+=\arg\min_{\beta}\left[
+-\frac{1}{R}\sum_{r=1}^{R}
+\left(x_{rw_r}^{\top}\beta-\log\sum_{j=1}^{n_r}\exp(x_{rj}^{\top}\beta)\right)
++\frac{\lambda}{2}\lVert\beta\rVert_2^2
+\right].
+\label{eq:clogit-objective}
+\end{equation}
+The optimization uses analytically derived gradients and L-BFGS-B. Numerical stability is obtained by subtracting the maximum score within each race before exponentiation. Numeric predictors are median-imputed and standardized using statistics fitted on training data only. Separate fundamental and combined preprocessors ensure that the combined market column does not alter the scaling of fundamental variables.
+
+The ridge penalty is selected from $\{0.0001,0.001,0.01,0.1\}$ by validation race log loss. The selected values are 0.1 for the fundamental specification and 0.01 for the combined specification. Only the validation season informs this choice. The resulting models are then applied to the test season without refitting on validation outcomes, keeping the evaluation straightforward to audit. A future extension can refit on training plus validation after all design decisions are frozen, but the interim results deliberately retain the original train-only fitted models.
+
+\subsection{LightGBM estimation and model selection}\label{sec:methods-lgbm}
+The LightGBM comparator uses a binary log-loss objective with 350 trees, learning rate 0.025, 15 leaves, minimum child size 100, feature fraction 0.85, subsample fraction 0.9, L1 regularization 0.2, and L2 regularization 5.0. Runner weights equal $1/n_r$, so each race contributes equal total weight despite varying field sizes. Numeric missing values receive training medians and categorical variables use training-fitted one-hot encoding. Predicted binary scores are clipped to $[10^{-12},1-10^{-12}]$ and normalized within each race before evaluation. This is a pragmatic adaptation, not a claim that the binary booster optimizes conditional race likelihood directly.
+
+The hyperparameters are fixed across fundamental and combined models to limit validation searching and isolate the effect of feature information. Four trained candidates arise: fundamental conditional logit, fundamental LightGBM, combined conditional logit, and combined LightGBM. The \emph{primary trained model} is the candidate with the lowest validation log loss; uniform and market remain benchmarks rather than candidates for this label. Combined conditional logit is selected with validation log loss 2.00168. Importantly, the calibrated market itself performs better on validation log loss (1.98864), so the selection terminology must not be misread as evidence that the trained model dominates the market.
+
+\subsection{Temperature calibration and evaluation metrics}\label{sec:methods-metrics}
+Temperature scaling adjusts an existing race probability vector using one positive parameter $T$:
+\begin{equation}
+p_{ri}(T)=\frac{p_{ri}^{1/T}}{\sum_{j=1}^{n_r}p_{rj}^{1/T}}.
+\label{eq:temperature}
+\end{equation}
+For $T<1$ the distribution becomes sharper; for $T>1$ it becomes softer. The optimal $\log T$ is obtained by bounded one-dimensional minimization of validation winner log loss, with $\log T\in[-1.5,1.5]$, and then applied unchanged to test predictions. Fitted temperatures are 0.91977 for market, 0.93338 for fundamental logit, 0.92458 for fundamental LightGBM, 1.00260 for combined logit, and 0.97968 for combined LightGBM. The near-unit value for combined logit indicates almost no global calibration adjustment.
+
+Let $y_{ri}=\mathbf{1}\{i=w_r\}$. The principal predictive metrics are
+\begin{align}
+\mathrm{LL}&=-\frac{1}{R}\sum_{r=1}^{R}\log p_{rw_r}, \label{eq:logloss}\\
+\mathrm{Brier}&=\frac{1}{R}\sum_{r=1}^{R}\sum_{i=1}^{n_r}(p_{ri}-y_{ri})^2. \label{eq:brier}
+\end{align}
+Lower values are better for both. Top-one strike rate is the proportion of races in which the maximum-probability runner wins. Runner-level expected calibration error (ECE) uses ten within-model quantile bins and weights $|\bar p_b-\bar y_b|$ by bin count. Reliability diagrams display the same bin means. Runner-level ROC AUC is reported as a secondary discrimination statistic, but it is not a proper race score: unequal field sizes mean even uniform within-race probabilities need not have AUC 0.5. Similarly, uniform ECE can be mechanically zero when bins coincide with field sizes, so neither statistic is interpreted in isolation.
+
+\subsection{WIN-betting rules and exact settlement}\label{sec:methods-betting}
+For decimal odds $d_{ri}$, the model-implied expected gross-profit multiple per unit stake is
+\begin{equation}
+\widehat{EV}_{ri}=p_{ri}d_{ri}-1.
+\label{eq:expected-value}
+\end{equation}
+The prespecified primary value rule considers runners with $\widehat{EV}_{ri}>0.05$ and $d_{ri}\leq30$, then places one HK\$10 stake on the runner with the largest expected value in each qualifying race. If no runner qualifies, no bet is placed. Comparator strategies bet on the maximum-probability runner in every race, the lowest-odds favourite in every race, and every runner in every race. Value strategies are also reported for the other trained models. Horse number breaks favourite ties, and deterministic sorting makes all selections reproducible.
+
+Winning bets are settled using the official HKJC WIN dividend $D_{ri}$ for a HK\$10 unit, not by assuming that rounded odds reproduce the payout exactly. Net profit is $D_{ri}-10$ for a winning selection and $-10$ otherwise. Total ROI is total net profit divided by total stakes. This automatically incorporates the pool economics reflected in official dividends. The HKJC guide states an 82.5\% dividend percentage for local WIN pools and describes conditional rebates for sufficiently large losing tickets\cite{hkjcguide}; no rebate is assumed in the conservative flat-stake analysis. Maximum drawdown is the greatest decline from a previous cumulative-profit peak, including zero as the initial capital reference.
+
+\subsection{Uncertainty and reproducibility controls}\label{sec:methods-uncertainty}
+ROI confidence intervals use 3,000 meeting-cluster bootstrap resamples. All bets on one calendar meeting form a cluster; cluster indices are drawn with replacement, and paired profits and stakes are summed before each ROI is calculated. This preserves dependence and varying bet counts within meetings. Predictive comparisons against the market use 5,000 paired meeting-cluster resamples of race-level log-loss, Brier-loss, and top-one differences. Intervals are percentile intervals. They quantify sampling instability under this resampling scheme, not model-selection uncertainty, execution uncertainty, or a guarantee about future seasons.
+
+The random seed is \num{20261119}. Analysis outputs include the cleaned panel, race predictions, model metrics, reliability bins, feature gains, coefficients, complete bet ledgers, cumulative-profit sequences, sensitivity grids, and collection manifests. Every reported probability vector is checked for finiteness and unit race sums. Betting counts and totals can be reconstructed from the saved bet-level files, and every runner row retains its official source URL. These controls provide the reproducibility needed for supervisor review and for extending rather than rebuilding the project during the final stage.

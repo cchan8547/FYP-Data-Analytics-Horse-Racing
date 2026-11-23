@@ -1,0 +1,68 @@
+\section{Remaining Work and Project Management}\label{sec:plan}
+
+\subsection{Completed foundation and extension priorities}\label{sec:plan-priorities}
+The interim stage has established the data, modeling, and evaluation infrastructure needed for the final stage. The immediate priority is no longer simply to collect more rows or test arbitrary algorithms. It is to address specific weaknesses identified by the empirical results: limited incremental information over the market, uncertain temporal stability, simplified treatment of non-finishers and early histories, and the gap between closing-price simulation and executable wagering. Extensions will therefore be evaluated against the current benchmarks with the same proper scores and official-dividend settlement, preserving comparability.
+
+The modeling search will remain deliberately small. Priorities are a two-stage fundamental/market combination motivated by Benter, a compact ablation of recent-form and connection features, and one ranking-model extension if it can be validated without changing the WIN objective implicitly\cite{benter1994,harville1973}. Any new specification must first demonstrate validation improvement; test results will not be used to select among new variants. If these extensions fail to improve validation performance, the negative result will be retained and the simpler market and conditional-logit benchmarks will remain central.
+
+\begin{table}[htbp]
+\centering
+\caption{Interim completion status and verifiable evidence}\label{tab:completion}
+\small
+\begin{tabularx}{\textwidth}{L{4.0cm} L{2.2cm} Y}
+\toprule
+\textbf{Work package} & \textbf{Status} & \textbf{Evidence produced} \\
+\midrule
+Official data collection & Complete & Five-season fixture/results panel, cached official pages, coverage table, source URLs, and zero request errors. \\
+Cleaning and quality assurance & Complete & Withdrawal audit, dead-heat handling, complete-case checks, sample-flow table, and official-page spot checks. \\
+Feature engineering & Complete for interim & Prior-only horse, distance, course, jockey, and trainer histories; race-relative and interaction variables. \\
+Probability modeling & Complete for interim & Fundamental/combined conditional logit and LightGBM, validation penalty selection, and race-wise normalization. \\
+Calibration and prediction evaluation & Complete for interim & Temperature scaling, metrics, reliability curves, feature importance, and paired predictive intervals. \\
+Initial WIN backtest & Complete for interim & Official-dividend ledgers, ROI, drawdown, clustered ROI intervals, odds bands, and sensitivity grid. \\
+Execution-realism analysis & Not complete & Requires timestamped odds or a defensible proxy and explicit slippage scenarios. \\
+Final integration and presentation & In preparation & Final robustness analyses, report revision, supervisor feedback, and 8--10 minute slide narrative. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Planned analytical extensions}\label{sec:plan-analysis}
+The first extension is temporal robustness. Rolling-origin evaluation will train on expanding earlier windows and validate on successive later periods, recording score distributions rather than relying only on the single 2024/25 validation year. This analysis will assess whether the market temperature, conditional-logit penalty, and combined-model advantage are stable. It will also provide a more defensible basis for freezing a revised betting threshold. The existing 2025/26 test results will remain labeled as interim hold-out evidence; if they are used during model development, a genuinely new future period will be required for any subsequent confirmatory claim.
+
+The second extension is information quality. A longer historical lookback would reduce left censoring, while separate non-finish indicators would replace some of the information lost by assigning one worst percentile. Course/distance-specific form and draw interactions will be examined through ablation rather than expanded indiscriminately. Where new official or otherwise verifiable fields can be obtained consistently, sectional timing and equipment information are higher priorities than additional transformations of final odds. Each feature family will be assessed by validation log loss, calibration, stability, and interpretability.
+
+The third extension is decision realism. The current flat-stake analysis will remain the transparent baseline. Scenario analysis may vary the price available at execution, apply conservative slippage, and quantify how often a qualifying signal disappears. Kelly or fractional-Kelly staking will be considered only as a secondary mathematical comparison because it magnifies probability-estimation error and drawdown risk. No staking system will be presented as converting a negative or unresolved edge into a reliable profit. Rebate and market-impact scenarios, if included, will be separately labeled assumptions rather than mixed into the official-dividend baseline.
+
+\subsection{Timeline and deliverables}\label{sec:plan-timeline}
+Table~\ref{tab:timeline} schedules the remaining work around the interim deadline of 26 November 2026. The dates are project-management targets rather than assumed university deadlines beyond those supplied for the interim report. Supervisor feedback is an explicit gate before major model expansion, because it can help distinguish necessary methodological work from low-value complexity. Final submission and presentation dates marked TBC will be aligned with official course instructions when available.
+
+Versioned checkpoints will contain the report source, analysis scripts, manifests, and result tables at each milestone. This reduces the risk that a late code change silently alters earlier numbers. Before final submission, a clean rerun will compare regenerated metrics with the reported tables, every figure will be checked against its source file, and all references and cross-references will be compiled and visually inspected. Time is reserved for Turnitin processing, supervisor review, the separate declaration form, and contingency rather than treating them as last-minute administrative tasks.
+
+\begin{table}[htbp]
+\centering
+\caption{Remaining-project timeline}\label{tab:timeline}
+\small
+\begin{tabularx}{\textwidth}{L{3.2cm} Y L{4.1cm}}
+\toprule
+\textbf{Target period} & \textbf{Planned work} & \textbf{Checkpoint / output} \\
+\midrule
+By 26 Nov 2026, 15:00 & Complete supervisor review, finalize interim PDF/Word submission, upload through the FYP system, and allow Turnitin generation time. & Interim report and separate signed declaration form. \\
+\addlinespace
+27 Nov--15 Dec 2026 & Consolidate feedback; freeze extension priorities; implement longer-history and non-finish sensitivity checks. & Revised data-quality and feature-ablation note. \\
+\addlinespace
+16 Dec 2026--31 Jan 2027 & Run rolling-origin comparisons and a small prespecified two-stage/model-ablation study. & Validated model-comparison table and frozen final methodology. \\
+\addlinespace
+February 2027 & Investigate timestamped price availability; conduct execution and slippage scenarios; complete robustness analysis. & Betting-validity chapter and final result artifacts. \\
+\addlinespace
+March 2027 & Integrate final report, repeat clean reproduction checks, and obtain supervisor feedback. & Near-final written report. \\
+\addlinespace
+April 2027 or official deadline & Revise, proofread, compile, and submit final materials; archive reproducible package. & Final report and reproducibility archive. \\
+\addlinespace
+Presentation window (TBC) & Rehearse an 8--10 minute presentation and prepare Q\&A evidence slides. & Slide deck, timing rehearsal, and backup results. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Presentation and Q\&A preparation}\label{sec:plan-presentation}
+The presentation will tell one coherent empirical story rather than reciting every feature. A nine-minute target leaves margin within the required 8--10 minutes. The proposed allocation is 45 seconds for the problem and research questions, 60 seconds for official data and chronological splitting, 105 seconds for race probability and leakage-safe methods, 120 seconds for prediction and calibration findings, 105 seconds for betting and uncertainty, 60 seconds for limitations, and 45 seconds for remaining work and the conclusion. The central visual sequence will be the sample split, model log-loss comparison, reliability plot, and betting ROI/sensitivity summary.
+
+Backup slides will contain the full metric table, feature definitions, betting ledger summary, paired intervals, and threshold grid so that questions can be answered without overcrowding the main narrative. Likely Q\&A topics include why independent binary classification is insufficient, how trainer leakage is prevented, why final odds limit execution claims, why accuracy does not imply profit, and whether the positive value ROI proves an edge. Rehearsal will use a timer and require concise answers that refer to actual tables or equations. If a question concerns unavailable evidence, the response will identify the limitation and planned test rather than speculate.

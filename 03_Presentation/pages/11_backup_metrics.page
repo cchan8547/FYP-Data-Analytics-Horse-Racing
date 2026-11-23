@@ -1,0 +1,87 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$grey", bold: true, letterSpacing: 1.2, wrap: false, text: "BACKUP 1 / FULL METRICS"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 830, 43]
+    content: {style: "$title", wrap: false, text: "Validation log loss and complete held-out test metrics"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: metrics-table
+    elementType: table
+    bounds: [48, 123, 864, 280]
+    columnWidths: [0.23, 0.12, 0.12, 0.12, 0.14, 0.12, 0.15]
+    rowHeights: [0.16, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14]
+    style: "$metrics"
+    rows:
+      - - {text: "Probability source"}
+        - {text: "Val. log loss"}
+        - {text: "Test log loss"}
+        - {text: "Test Brier"}
+        - {text: "Test top-one"}
+        - {text: "Test ECE"}
+        - {text: "Runner AUC"}
+      - - {text: "Uniform"}
+        - {text: "2.491986"}
+        - {text: "2.516217"}
+        - {text: "0.918448"}
+        - {text: "11.95%"}
+        - {text: "0.000000"}
+        - {text: "0.532478"}
+      - - {text: "Market", fill: {type: solid, color: "#F2E6C4"}}
+        - {text: "1.988639", fill: {type: solid, color: "#F2E6C4"}}
+        - {text: "2.032094", fill: {type: solid, color: "#F2E6C4"}}
+        - {text: "0.818815", fill: {type: solid, color: "#F2E6C4"}}
+        - {text: "28.65%", fill: {type: solid, color: "#F2E6C4"}}
+        - {text: "0.005729", fill: {type: solid, color: "#F2E6C4"}}
+        - {text: "0.791872", fill: {type: solid, color: "#F2E6C4"}}
+      - - {text: "Fundamental Logit"}
+        - {text: "2.200620"}
+        - {text: "2.247077"}
+        - {text: "0.869377"}
+        - {text: "22.85%"}
+        - {text: "0.006719"}
+        - {text: "0.725146"}
+      - - {text: "Fundamental LightGBM"}
+        - {text: "2.213614"}
+        - {text: "2.246129"}
+        - {text: "0.869233"}
+        - {text: "23.43%"}
+        - {text: "0.003245"}
+        - {text: "0.725044"}
+      - - {text: "Combined Logit", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "2.001683", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "2.031766", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "0.819465", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "29.35%", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "0.005739", fill: {type: solid, color: "#DCEEE8"}}
+        - {text: "0.791983", fill: {type: solid, color: "#DCEEE8"}}
+      - - {text: "Combined LightGBM"}
+        - {text: "2.010571"}
+        - {text: "2.046935"}
+        - {text: "0.822130"}
+        - {text: "28.54%"}
+        - {text: "0.006632"}
+        - {text: "0.788018"}
+  - elementId: metric-notes
+    elementType: text
+    bounds: [48, 424, 864, 53]
+    content:
+      fontSize: 13
+      color: "$ink"
+      lineHeight: 1.3
+      text: |
+        <p><strong>Reading:</strong> lower log loss, Brier loss, and ECE are better; higher top-one strike and AUC are better. Runner AUC is descriptive because runners within a race are dependent.</p>
+        <p>Uniform ECE is degenerate under tied runner-level bins and should not be read as evidence of useful calibration.</p>
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 509, 760, 14]
+    content: {style: "$source", wrap: false, text: "Source: results/model_metrics.csv. Temperatures are fitted on validation predictions and then held fixed for test."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "11 / 14"}

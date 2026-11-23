@@ -1,0 +1,112 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$teal", bold: true, letterSpacing: 1.2, wrap: false, text: "05 / WIN-BETTING EVALUATION"}
+  - elementId: timing
+    elementType: text
+    bounds: [850, 18, 62, 18]
+    content: {fontSize: 11, color: "$grey", bold: true, align: [right, middle], wrap: false, text: "0:45"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 850, 43]
+    content: {style: "$title", fontSize: 31, wrap: false, text: "A forecast becomes a bet only when the price compensates"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: ev-label
+    elementType: text
+    bounds: [48, 121, 360, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "EXPECTED VALUE PER HK$1"}
+  - elementId: ev-formula
+    elementType: text
+    bounds: [48, 152, 360, 54]
+    content:
+      fontSize: 32
+      color: "$navy"
+      align: [left, middle]
+      text: |
+        <p>\(\mathrm{EV}=p\times d-1\)</p>
+  - elementId: rule
+    elementType: text
+    bounds: [48, 222, 370, 122]
+    content:
+      fontSize: 17
+      color: "$ink"
+      lineHeight: 1.38
+      text: |
+        <p><strong>Main value rule</strong></p>
+        <p>EV &gt; 0.05 · decimal odds ≤ 30</p>
+        <p>One highest-EV selection per qualifying race</p>
+        <p>Flat HK$10 stake · no assumed rebate</p>
+  - elementId: comparators
+    elementType: text
+    bounds: [48, 355, 382, 43]
+    content:
+      fontSize: 13
+      color: "$grey"
+      lineHeight: 1.3
+      text: "Comparators: top-probability pick, lowest-odds favourite, and every runner."
+  - {elementId: flow-divider, elementType: shape, bounds: [455, 123, 1, 275], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: flow-label
+    elementType: text
+    bounds: [500, 121, 412, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "FROM MODEL OUTPUT TO SETTLED RETURN"}
+  - elementId: flow-1-no
+    elementType: text
+    bounds: [500, 160, 34, 28]
+    content: {fontSize: 20, color: "$gold", bold: true, wrap: false, text: "01"}
+  - elementId: flow-1
+    elementType: text
+    bounds: [548, 156, 364, 40]
+    content: {fontSize: 17, color: "$ink", bold: true, text: "Calibrated within-race probability"}
+  - {elementId: flow-line-1, elementType: shape, bounds: [500, 204, 412, 1], shapeName: rect, fill: {type: solid, color: "#D8DEDA"}}
+  - elementId: flow-2-no
+    elementType: text
+    bounds: [500, 220, 34, 28]
+    content: {fontSize: 20, color: "$gold", bold: true, wrap: false, text: "02"}
+  - elementId: flow-2
+    elementType: text
+    bounds: [548, 216, 364, 40]
+    content: {fontSize: 17, color: "$ink", bold: true, text: "Qualify at displayed final WIN odds"}
+  - {elementId: flow-line-2, elementType: shape, bounds: [500, 264, 412, 1], shapeName: rect, fill: {type: solid, color: "#D8DEDA"}}
+  - elementId: flow-3-no
+    elementType: text
+    bounds: [500, 280, 34, 28]
+    content: {fontSize: 20, color: "$gold", bold: true, wrap: false, text: "03"}
+  - elementId: flow-3
+    elementType: text
+    bounds: [548, 276, 364, 40]
+    content: {fontSize: 17, color: "$ink", bold: true, text: "Settle winners with official WIN dividend"}
+  - {elementId: flow-line-3, elementType: shape, bounds: [500, 324, 412, 1], shapeName: rect, fill: {type: solid, color: "#D8DEDA"}}
+  - elementId: flow-4-no
+    elementType: text
+    bounds: [500, 340, 34, 28]
+    content: {fontSize: 20, color: "$gold", bold: true, wrap: false, text: "04"}
+  - elementId: flow-4
+    elementType: text
+    bounds: [548, 336, 364, 48]
+    content: {fontSize: 17, color: "$ink", bold: true, text: "Measure ROI, drawdown, and clustered uncertainty"}
+  - {elementId: caution-stripe, elementType: shape, bounds: [48, 423, 6, 48], shapeName: rect, fill: {type: solid, color: "$orange"}}
+  - elementId: caution
+    elementType: text
+    bounds: [70, 421, 842, 54]
+    content:
+      fontSize: 15
+      color: "$ink"
+      lineHeight: 1.28
+      text: |
+        <p><strong>Execution boundary:</strong> final odds are a closing-price proxy. The backtest does not model bet timing, slippage, market impact, rejected bets, or operational delays.</p>
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 507, 790, 18]
+    content:
+      style: "$source"
+      wrap: false
+      text: |
+        <p>Source: <a href="https://is.hkjc.com/AOSBS/help/en/HR_Guide.html">HKJC Horse Racing Betting Guide</a>; project betting rules and official-dividend settlement.</p>
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "07 / 14"}

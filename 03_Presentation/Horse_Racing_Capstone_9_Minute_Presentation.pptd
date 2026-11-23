@@ -1,0 +1,76 @@
+version: v2
+title: "Data Analytics for Horse Racing — Nine-Minute Capstone Presentation"
+size: [960, 540]
+customFonts:
+  - family: Liter
+    src: "https://statics.kimi.ai/neo-design-static/p-font/Liter.ttf"
+  - family: Oranienbaum
+    src: "https://statics.kimi.ai/neo-design-static/p-font/Oranienbaum.ttf"
+theme:
+  colors:
+    navy: "#173F5F"
+    teal: "#1B998B"
+    gold: "#E9C46A"
+    orange: "#E76F51"
+    red: "#C94452"
+    ink: "#24313D"
+    paper: "#F7F3E8"
+    soft: "#F3F6F8"
+    grey: "#6B7280"
+    pale: "#D8E1DF"
+    white: "#FFFFFF"
+  textStyles:
+    title:
+      fontFamily: Liter
+      fontSize: 33
+      color: "$navy"
+      bold: true
+      lineHeight: 1.1
+    body:
+      fontFamily: Liter
+      fontSize: 18
+      color: "$ink"
+      lineHeight: 1.28
+    small:
+      fontFamily: Liter
+      fontSize: 12
+      color: "$grey"
+      lineHeight: 1.25
+    source:
+      fontFamily: Liter
+      fontSize: 9
+      color: "$grey"
+      lineHeight: 1.15
+  tableStyles:
+    metrics:
+      cellStyle:
+        fontFamily: Liter
+        fontSize: 13
+        color: "$ink"
+        fill: {type: solid, color: "$paper"}
+        border: [null, null, {style: solid, width: 0.6, color: "#CBD5D5"}, null]
+        align: [center, middle]
+      firstRowStyle:
+        fontSize: 12
+        bold: true
+        color: "$white"
+        fill: {type: solid, color: "$navy"}
+        border: [null, null, {style: solid, width: 1, color: "$navy"}, null]
+      firstColumnStyle:
+        align: [left, middle]
+        bold: true
+pages:
+  - pages/01_cover.page
+  - pages/02_research_questions.page
+  - pages/03_data_design.page
+  - pages/04_methods.page
+  - pages/05_prediction.page
+  - pages/06_calibration.page
+  - pages/07_betting_design.page
+  - pages/08_betting_results.page
+  - pages/09_sensitivity_limits.page
+  - pages/10_conclusion.page
+  - pages/11_backup_metrics.page
+  - pages/12_backup_intervals.page
+  - pages/13_backup_importance.page
+  - pages/14_backup_betting.page

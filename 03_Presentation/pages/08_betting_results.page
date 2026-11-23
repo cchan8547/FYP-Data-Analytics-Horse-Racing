@@ -1,0 +1,74 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$teal", bold: true, letterSpacing: 1.2, wrap: false, text: "05 / TEST-SEASON RETURNS"}
+  - elementId: timing
+    elementType: text
+    bounds: [850, 18, 62, 18]
+    content: {fontSize: 11, color: "$grey", bold: true, align: [right, middle], wrap: false, text: "1:10"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 850, 43]
+    content: {style: "$title", fontSize: 31, wrap: false, text: "The main value rule made HK$91—but uncertainty dominates"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: roi-label
+    elementType: text
+    bounds: [48, 121, 225, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "COMBINED LOGIT VALUE RULE"}
+  - elementId: roi
+    elementType: text
+    bounds: [48, 150, 230, 57]
+    content: {fontSize: 44, color: "$teal", bold: true, wrap: false, text: "+7.17%"}
+  - elementId: roi-caption
+    elementType: text
+    bounds: [48, 207, 230, 24]
+    content: {fontSize: 16, color: "$ink", bold: true, wrap: false, text: "test-season ROI"}
+  - elementId: result-stats
+    elementType: text
+    bounds: [48, 246, 230, 97]
+    content:
+      fontSize: 15
+      color: "$ink"
+      lineHeight: 1.38
+      text: |
+        <p><strong>127</strong> bets · <strong>18</strong> winners</p>
+        <p>HK$1,270 staked</p>
+        <p>HK$91 net profit</p>
+        <p>Maximum drawdown HK$287</p>
+  - {elementId: ci-rule, elementType: shape, bounds: [48, 359, 62, 4], shapeName: rect, fill: {type: solid, color: "$gold"}}
+  - elementId: ci
+    elementType: text
+    bounds: [48, 377, 232, 58]
+    content:
+      fontSize: 15
+      color: "$navy"
+      bold: true
+      lineHeight: 1.28
+      text: |
+        <p>95% ROI interval</p>
+        <p>−49.56% to +77.19%</p>
+  - elementId: comparator
+    elementType: text
+    bounds: [48, 444, 234, 34]
+    content:
+      fontSize: 12
+      color: "$grey"
+      lineHeight: 1.25
+      text: "Top-pick rule: −16.23% · favourite every race: −19.94%"
+  - elementId: profit-chart
+    elementType: image
+    bounds: [306, 116, 606, 354]
+    src: "media/cumulative_profit.png"
+    fit: {mode: contain}
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 507, 790, 18]
+    content: {style: "$source", wrap: false, text: "Source: betting_summary.csv, bets_combined_logit.csv, cumulative_profit.csv; official HKJC WIN dividends; 3,000 meeting-cluster resamples."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "08 / 14"}

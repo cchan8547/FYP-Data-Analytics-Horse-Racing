@@ -1,0 +1,116 @@
+{
+  "description": "Explicitly synthetic WIN-pool snapshots for formula and workflow verification; not HKJC observations.",
+  "is_synthetic": true,
+  "snapshots": [
+    {
+      "record_id": "SYNTH-R1-001",
+      "source": "SYNTHETIC",
+      "observed_at_utc": "2026-01-05T02:00:00Z",
+      "meeting_date": "2026-01-05",
+      "venue": "ST",
+      "race_no": 1,
+      "pool_id": "SYNTH-20260105-ST-R1-WIN",
+      "status": "OPEN",
+      "sell_status": "SELLING",
+      "odds_source_time": "2026-01-05T02:00:00Z",
+      "pool_source_time": "2026-01-05T02:00:00Z",
+      "pool_investment": 10000000,
+      "odds": [
+        {"combString": "1", "oddsValue": 5.0},
+        {"combString": "2", "oddsValue": 3.0},
+        {"combString": "3", "oddsValue": 1.4732142857142854}
+      ]
+    },
+    {
+      "record_id": "SYNTH-R1-002",
+      "source": "SYNTHETIC",
+      "observed_at_utc": "2026-01-05T02:05:00Z",
+      "meeting_date": "2026-01-05",
+      "venue": "ST",
+      "race_no": 1,
+      "pool_id": "SYNTH-20260105-ST-R1-WIN",
+      "status": "OPEN",
+      "sell_status": "SELLING",
+      "odds_source_time": "2026-01-05T02:05:00Z",
+      "pool_source_time": "2026-01-05T02:05:00Z",
+      "pool_investment": 11000000,
+      "odds": [
+        {"combString": "1", "oddsValue": 4.5},
+        {"combString": "2", "oddsValue": 3.2},
+        {"combString": "3", "oddsValue": 1.4762348555452003}
+      ]
+    },
+    {
+      "record_id": "SYNTH-R1-003",
+      "source": "SYNTHETIC",
+      "observed_at_utc": "2026-01-05T02:10:00Z",
+      "meeting_date": "2026-01-05",
+      "venue": "ST",
+      "race_no": 1,
+      "pool_id": "SYNTH-20260105-ST-R1-WIN",
+      "status": "OPEN",
+      "sell_status": "SELLING",
+      "odds_source_time": "2026-01-05T02:10:00Z",
+      "pool_source_time": "2026-01-05T02:10:00Z",
+      "pool_investment": 11500000,
+      "odds": [
+        {"combString": "1", "oddsValue": 4.5},
+        {"combString": "2", "oddsValue": 3.2},
+        {"combString": "3", "oddsValue": 1.4762348555452003}
+      ]
+    },
+    {
+      "record_id": "SYNTH-R1-004",
+      "source": "SYNTHETIC",
+      "observed_at_utc": "2026-01-05T02:15:00Z",
+      "meeting_date": "2026-01-05",
+      "venue": "ST",
+      "race_no": 1,
+      "pool_id": "SYNTH-20260105-ST-R1-WIN",
+      "status": "OPEN",
+      "sell_status": "SELLING",
+      "odds_source_time": "2026-01-05T02:15:00Z",
+      "pool_source_time": "2026-01-05T02:15:00Z",
+      "pool_investment": 11500000,
+      "odds": [
+        {"combString": "1", "oddsValue": 5.0},
+        {"combString": "2", "oddsValue": 3.2},
+        {"combString": "3", "oddsValue": 1.4293448835950189}
+      ]
+    },
+    {
+      "record_id": "SYNTH-R1-005-DUPLICATE",
+      "source": "SYNTHETIC",
+      "observed_at_utc": "2026-01-05T02:20:00Z",
+      "meeting_date": "2026-01-05",
+      "venue": "ST",
+      "race_no": 1,
+      "pool_id": "SYNTH-20260105-ST-R1-WIN",
+      "status": "OPEN",
+      "sell_status": "SELLING",
+      "odds_source_time": "2026-01-05T02:20:00Z",
+      "pool_source_time": "2026-01-05T02:20:00Z",
+      "pool_investment": 11500000,
+      "odds": [
+        {"combString": "1", "oddsValue": 5.0},
+        {"combString": "2", "oddsValue": 3.2},
+        {"combString": "3", "oddsValue": 1.4293448835950189}
+      ]
+    },
+    {
+      "record_id": "SYNTH-R2-PRESALE",
+      "source": "SYNTHETIC",
+      "observed_at_utc": "2026-01-05T02:00:00Z",
+      "meeting_date": "2026-01-05",
+      "venue": "ST",
+      "race_no": 2,
+      "pool_id": "SYNTH-20260105-ST-R2-WIN",
+      "status": "DEFINED",
+      "sell_status": "STOP_SELL",
+      "odds_source_time": "",
+      "pool_source_time": "",
+      "pool_investment": null,
+      "odds": []
+    }
+  ]
+}

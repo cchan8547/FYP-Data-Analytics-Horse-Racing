@@ -1,0 +1,54 @@
+\section{Discussion and Validity Assessment}\label{sec:discussion}
+
+\subsection{Interpretation of the research questions}\label{sec:discussion-rq}
+For RQ1, the interim evidence supports a meaningful but limited fundamental signal. Both fundamental estimators outperform the uniform benchmark by a wide margin in log loss and top-one strike rate, yet their test log losses are approximately 0.214 above the market and their top-one rates are roughly five to six percentage points lower. The constructed histories therefore capture real information about relative performance, connections, and race conditions, but not enough to rival the information aggregated in final prices. This does not imply that fundamental variables have no value; it implies that their standalone forecasts should not be confused with the best available forecast when final market information is permitted.
+
+For RQ2, race-normalized and temperature-adjusted probabilities are approximately calibrated at a global level, with small ECE values and reliability curves that broadly follow the diagonal. Nevertheless, local deviations remain and ECE has structural limitations, including the degenerate uniform-benchmark case. For RQ3, adding market information produces a dramatic improvement over fundamental models, but incremental improvement over the market itself is unresolved. The primary model's paired intervals for log loss, Brier loss, and top-one rate all include zero. The most defensible summary is therefore market-comparable performance in one test season, with no established incremental forecasting advantage.
+
+For RQ4, the positive 7.17\% ROI for the primary value rule is interesting but evidentially weak. Its confidence interval is wide, it depends on 127 bets and 18 winners, and nearby thresholds produce materially different outcomes. The negative results for top-pick, favourite, every-runner, and fundamental value strategies show that most simple approaches lose after official settlement. Taken together, the findings do not establish either a universally efficient market or a usable inefficiency. They show that this particular model and dataset do not provide robust evidence of exploitable WIN value, while leaving open whether richer information and more realistic execution data could change the conclusion.
+
+\subsection{Methodological lessons}\label{sec:discussion-lessons}
+The first lesson is that problem representation matters. Treating runners as independent binary rows would obscure the fact that every race has a fixed choice set and would require an additional normalization step before proper evaluation. Conditional logit builds this constraint into estimation, while the LightGBM comparator receives it only at prediction time. Their similar fundamental test log losses suggest that the current feature set and sample do not produce a large advantage for either representation. This is a useful interim result because it directs future effort toward information and validation design rather than assuming that a more complex learner must improve performance.
+
+The second lesson is that careful data auditing changes substantive results. Withdrawn horses initially appeared to make 383 races unusable; recognizing their HKJC status codes restored those races and corrected field sizes, overrounds, market probabilities, and histories. Likewise, official dividends matter because a rounded displayed price is not always identical to the actual payout. Finally, entity--race aggregation before shifting is necessary to prevent subtle same-race leakage for trainers and jockeys. These details are less visually appealing than model diagrams, but they protect the validity of every downstream metric.
+
+The third lesson is that economic evaluation requires a different inferential mindset from prediction evaluation. The primary top-pick rule increases strike rate relative to favourites yet still loses money; the value rule earns a small profit despite lower predictive performance being statistically indistinguishable from the market; and the most profitable sensitivity cell is based on only 48 bets. Prediction metrics average over all races, whereas betting metrics condition on a model-selected, often long-priced subset. The final project should retain this separation and avoid using betting ROI as a substitute for probability scoring or vice versa.
+
+\subsection{Threats to internal and statistical validity}\label{sec:discussion-limitations}
+The most important threat is the use of final odds as predictors and decision prices. Final odds are available in the archived result page, but the dataset does not establish the exact moment at which a simulated bettor could observe them or submit a bet. In a pari-mutuel market, later wagers can move both the odds and dividend. The backtest therefore measures closing-price value, not guaranteed implementable profit. Obtaining timestamped odds near the off, specifying an information cutoff, and modeling slippage are necessary before making execution claims.
+
+A second threat is sample and feature censoring. Histories begin in September 2021, so an established horse's first observed start in the dataset is not a true debut and early-season career features are left-censored. The current panel also lacks sectional times, speed figures, equipment changes, trackwork, veterinary information, detailed weather, and many other potentially informative variables. Non-finish codes are mapped to the worst finishing percentile, which is a transparent simplification but ignores differences among pulled-up, unseated, and disqualified outcomes. Dead heats are excluded, which has negligible sample-size impact but limits generality to the single-winner likelihood.
+
+A third threat is residual selection and dependence. The validation season is used for penalties, temperatures, and primary-model selection, so repeated future experimentation on that season could gradually overfit it. The test sensitivity grid is explicitly exploratory, but reporting many cells still creates a risk that readers focus on the most favourable one. Meeting clustering addresses some shared shocks, yet it cannot model every source of dependence across nearby meetings or seasonal regimes. Percentile bootstrap intervals also do not include model-form, data-collection, or execution uncertainty.
+
+\begin{table}[htbp]
+\centering
+\caption{Principal limitations, consequences, and planned mitigation}\label{tab:limitations}
+\small
+\begin{tabularx}{\textwidth}{L{3.2cm} Y Y}
+\toprule
+\textbf{Limitation} & \textbf{Why it matters} & \textbf{Planned response} \\
+\midrule
+Final-odds proxy & A closing-price backtest may not be executable at the displayed price. & Seek timestamped odds; impose an explicit cutoff; test slippage scenarios. \\
+\addlinespace
+Left-censored histories & Early observed horse and connection records omit pre-2021 experience. & Extend the lookback period and test warm-up exclusions or sensitivity to initial seasons. \\
+\addlinespace
+Incomplete handicapping information & Sectionals, equipment, trackwork, and other signals may be omitted. & Prioritize obtainable high-value features and document every additional source. \\
+\addlinespace
+Single test season & One season cannot establish temporal stability. & Add rolling-origin origins and reserve future data for confirmation. \\
+\addlinespace
+Validation reuse & Repeated tuning can overfit the validation year. & Keep a decision log and limit the remaining search to a small prespecified set. \\
+\addlinespace
+Exploratory threshold grid & Attractive cells can arise by chance or small samples. & Treat grid as diagnostic; validate any revised rule chronologically on new data. \\
+\addlinespace
+Simplified non-finish handling & Different non-completion mechanisms may carry different information. & Add indicator variables and compare alternative encodings. \\
+\addlinespace
+No market impact or rebate model & Real returns can differ for larger or eligible wagers. & Retain flat-stake baseline and add separately labeled execution scenarios. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{External validity and responsible interpretation}\label{sec:discussion-external}
+The findings concern Hong Kong local WIN markets during 2021/22--2025/26. They should not be transported directly to bookmaker markets, other jurisdictions, place or exotic pools, or future seasons without revalidation. Different takeout rates, field sizes, racing programmes, information environments, and bettor behaviour can change both probability calibration and return distributions. Even within Hong Kong, performance may differ by course, surface, class, or distance. Subgroup analysis can reveal instability, but it must be interpreted with multiple-testing caution and adequate sample sizes.
+
+There is also a responsible-communication requirement. A positive historical ROI is not a recommendation to bet, and the very wide interval in this study illustrates how limited the evidence is. The academic value of the project lies in transparent measurement, not in promoting gambling. The final report and presentation should preserve the research-use notice, display sample sizes next to returns, distinguish exploratory from prespecified findings, and avoid language such as ``guaranteed'', ``safe'', or ``proven profitable''. These practices improve both scientific and ethical quality.

@@ -1,0 +1,44 @@
+\section{Research Problem and Project Direction}\label{sec:introduction}
+
+\subsection{Background and rationale}\label{sec:background}
+Horse racing is a useful capstone setting for mathematics and data science because each race is a discrete-choice problem with a fixed field, exactly one winner in ordinary circumstances, public covariates, and a market price for every possible outcome. A useful model must therefore do more than label individual runners as likely or unlikely winners. It must compare competitors within the same race, allocate one unit of probability across the field, and quantify uncertainty out of sample. This structure connects multinomial discrete-choice modeling, statistical learning, probability calibration, and decision analysis. Early racetrack research established conditional or multinomial logit models as a natural way to represent within-race competition, while later work demonstrated the practical importance of combining fundamental handicapping variables with public market information\cite{bolton1986,benter1994}.
+
+Hong Kong adds a second layer of analytical interest. Local WIN betting operates through a pari-mutuel pool rather than a fixed-price bookmaker, so final odds summarize public wagering and dividends depend on pool rules. The Hong Kong Jockey Club (HKJC) states that 82.5\% of local WIN pools is paid as dividends, before effects such as rounding and applicable rebates\cite{hkjcguide}. Consequently, an accurate probability forecast need not imply a profitable bet: the price must compensate for both forecast error and the pool deduction. This distinction motivates a project in which predictive quality and economic evaluation are related but separately measured. It also prevents a common analytical mistake in which high winner-selection accuracy is presented as evidence of betting value.
+
+\subsection{Aim and research questions}\label{sec:aim}
+The project aim is to build a transparent, leakage-resistant analytical workflow that estimates within-race winning probabilities for Hong Kong horse races and evaluates whether those estimates improve prediction or historical WIN-betting decisions under a strictly chronological design. The market is treated as a serious benchmark rather than as an inconvenience to be ignored. Fundamental models use only variables available before the outcome and exclude odds; combined models add final market information. This comparison measures the incremental value of the constructed features while retaining a realistic reference point. The design follows the broad logic of fundamental and combined handicapping systems but implements a new, reproducible pipeline on recent official Hong Kong data\cite{benter1994,chapman1994}.
+
+Four research questions organize the interim analysis and the remaining project. They deliberately separate statistical discrimination, calibration, incremental information, and economic value. A model could answer one question favourably and another unfavourably; for example, a top-pick rule could select more winners than a favourite rule while still producing a worse return because of the prices paid. Table~\ref{tab:researchquestions} also identifies the empirical evidence used for each question so that the final report can retain a clear audit trail from aims to conclusions.
+
+\begin{table}[htbp]
+\centering
+\caption{Research questions and corresponding evidence}\label{tab:researchquestions}
+\small
+\begin{tabularx}{\textwidth}{L{0.8cm} L{5.3cm} Y L{3.2cm}}
+\toprule
+\textbf{ID} & \textbf{Research question} & \textbf{Evidence and evaluation} & \textbf{Interim status} \\
+\midrule
+RQ1 & How well can historical runner, jockey, trainer, and race variables predict the winner without using odds? & Conditional logit and LightGBM compared with uniform and market benchmarks using chronological log loss, Brier loss, top-one strike rate, and ROC AUC. & Answered provisionally using the held-out 2025/26 season. \\
+\addlinespace
+RQ2 & Are the resulting probabilities numerically calibrated within races? & Race-wise normalization, validation-fitted temperature scaling, reliability diagrams, and expected calibration error. & Answered provisionally; residual bin-level deviations remain. \\
+\addlinespace
+RQ3 & Does adding market information improve over fundamental-only models, and does it improve over the market itself? & Paired fundamental/combined specifications and paired meeting-bootstrap intervals for differences against the calibrated market. & Market information is essential; incremental improvement over the market is inconclusive. \\
+\addlinespace
+RQ4 & Can a prespecified expected-value rule generate robust flat-stake WIN returns after pool effects? & Official-dividend settlement, ROI and drawdown, meeting-cluster intervals, odds bands, alternative strategies, and threshold sensitivity. & No robust evidence of profitability in the interim test. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Objectives, scope, and unit of analysis}\label{sec:scope}
+The first objective is computational: collect official fixtures, race metadata, runner records, final WIN odds, and dividends for five complete seasons and construct a consistent race--runner panel. The second is statistical: develop historical features that use only prior races, estimate race-normalized probabilities, tune on a later validation season, and assess on a subsequent untouched season. The third is evaluative: compare models with proper scoring rules and calibration diagnostics rather than classification accuracy alone. The fourth is decision-oriented: translate probabilities into prespecified betting decisions, settle winning tickets from official dividends, and represent financial uncertainty through clustered resampling and sensitivity analysis. These objectives make the project both mathematically substantive and reproducible.
+
+The unit of prediction is a runner nested within a race, while the unit of model likelihood is the race. The primary betting unit is one HK\$10 WIN stake on at most one selection per race. The study covers Sha Tin and Happy Valley local races in the seasons 2021/22 through 2025/26; the incomplete 2026/27 season is excluded. Only single-winner races enter the present conditional-softmax likelihood, so seven dead heats are removed after data validation. Place pools, exotic bets, Kelly staking, in-play trading, and international simulcasts lie outside the current scope. These boundaries keep the interim analysis tractable and avoid mixing incompatible outcome or settlement mechanisms.
+
+\begin{tcolorbox}[capstonebox]
+\textbf{Scope safeguard.} Final WIN odds are used as a proxy for information visible near the start of a race. The analysis is therefore a closing-price backtest, not proof that every simulated trade could have been executed at the stated price. Odds movement after a wager, market impact, rejected bets, and operational delays are not observed in the current dataset. This limitation is central when interpreting the betting results in Section~\ref{sec:results}.
+\end{tcolorbox}
+
+\subsection{Interim contribution and report organization}\label{sec:contribution}
+The main interim contribution is an end-to-end empirical base rather than a proposal supported only by illustrative examples. The official-source collector has returned all available archived race pages without request errors; the cleaning rules distinguish withdrawn horses from starters; the sample splits are chronological; historical entity features are shifted before being joined back to runners; and every final probability vector has been checked to sum to one within its race. The modeling output includes validation and test metrics, reliability bins, test predictions, feature importance, complete bet records, threshold sensitivity, cumulative profit, and paired uncertainty intervals. These artifacts make the stated findings inspectable and provide a stable foundation for the final-stage extensions.
+
+The remainder of the report follows the analytical sequence. Section~\ref{sec:literature} reviews probability modeling, market efficiency, calibration, and betting evaluation. Section~\ref{sec:data} explains data provenance, cleaning, and descriptive patterns. Section~\ref{sec:methods} specifies features, estimators, calibration, metrics, betting rules, and reproducibility controls. Section~\ref{sec:results} presents interim results without interpreting exploratory thresholds as confirmatory evidence. Sections~\ref{sec:discussion} and~\ref{sec:plan} then discuss validity, limitations, remaining analyses, and presentation preparation. Appendices contain detailed numerical tables, a reproduction guide, and an administrative submission checklist.

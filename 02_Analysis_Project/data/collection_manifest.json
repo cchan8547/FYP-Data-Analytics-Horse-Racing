@@ -1,0 +1,16 @@
+{
+  "retrieved_utc": "2026-11-19T05:39:46.460670Z",
+  "source": "The Hong Kong Jockey Club official local results and fixture pages",
+  "seasons": [
+    "2021/22",
+    "2022/23",
+    "2023/24",
+    "2024/25",
+    "2025/26"
+  ],
+  "meetings": 444,
+  "races": 4214,
+  "runners": 51553,
+  "candidate_pages": 4703,
+  "errors": 0
+}

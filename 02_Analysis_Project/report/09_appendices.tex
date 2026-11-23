@@ -1,0 +1,124 @@
+\section{Additional Numerical Results}\label{app:numerical}
+
+\subsection{Complete betting summary}\label{app:betting}
+Table~\ref{tab:betting-full} preserves the full strategy comparison, including top-pick results omitted from the main betting table for readability. The intervals reveal different types of evidence. Some negative strategies have intervals entirely below zero, whereas the primary value rule and several other value variants have intervals spanning both gains and losses. The combined-LightGBM value strategy is close to break-even in its point estimate but negative; the fundamental-LightGBM value point estimate is more negative while its interval still crosses zero. These differences show why ranking strategies by point ROI alone would be misleading.
+
+Top-pick strategies place exactly one bet in every test race, whereas value strategies have variable coverage. Stake totals therefore differ, and ROI rather than raw profit is the appropriate scale-free comparison. Nevertheless, ROI does not convey path risk by itself, so maximum drawdown is included. All values can be reconstructed from the bet-level files listed in Appendix~\ref{app:reproduction}.
+
+\begin{table}[htbp]
+\centering
+\caption{Complete test-season betting summary}\label{tab:betting-full}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{L{4.2cm} R{1.0cm} R{1.5cm} R{1.4cm} R{1.5cm} R{1.6cm} L{3.0cm}}
+\toprule
+\textbf{Strategy} & \textbf{Bets} & \textbf{Stake HK\$} & \textbf{ROI} & \textbf{Strike rate} & \textbf{Max DD HK\$} & \textbf{95\% ROI interval} \\
+\midrule
+Fundamental logit value & 833 & \num{8330} & $-31.85\%$ & 5.52\% & \num{3035.50} & $[-53.27\%,-9.16\%]$ \\
+Fundamental logit top pick & 862 & \num{8620} & $-24.40\%$ & 22.85\% & \num{2171.00} & $[-34.89\%,-13.76\%]$ \\
+Fundamental LightGBM value & 840 & \num{8400} & $-14.32\%$ & 6.19\% & \num{2755.00} & $[-39.16\%,12.25\%]$ \\
+Fundamental LightGBM top pick & 862 & \num{8620} & $-16.14\%$ & 23.43\% & \num{1763.50} & $[-27.85\%,-3.90\%]$ \\
+Combined logit value & 127 & \num{1270} & $+7.17\%$ & 14.17\% & 287.00 & $[-49.56\%,77.19\%]$ \\
+Combined logit top pick & 862 & \num{8620} & $-16.23\%$ & 29.35\% & \num{1525.00} & $[-25.95\%,-7.09\%]$ \\
+Combined LightGBM value & 481 & \num{4810} & $-2.12\%$ & 12.89\% & 529.50 & $[-30.61\%,28.67\%]$ \\
+Combined LightGBM top pick & 862 & \num{8620} & $-17.20\%$ & 28.54\% & \num{1760.00} & $[-27.23\%,-7.13\%]$ \\
+Favourite every race & 862 & \num{8620} & $-19.94\%$ & 28.65\% & \num{1718.50} & $[-29.51\%,-10.58\%]$ \\
+Every runner & \num{10760} & \num{107600} & $-23.55\%$ & 8.01\% & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Complete paired predictive comparisons}\label{app:predictive-intervals}
+The paired comparisons in Table~\ref{tab:predictive-full} use the market as the reference within each meeting resample. Negative log-loss and Brier differences favour the candidate; positive top-one differences favour the candidate. Fundamental models are clearly worse than the market on all three measures. Combined logit has intervals crossing zero throughout. Combined LightGBM has a positive log-loss interval, indicating worse performance than the market, while its Brier and top-one intervals still include zero.
+
+These intervals supplement rather than replace the metric table. A difference can be small in practical terms even when an interval excludes zero, and an interval crossing zero does not prove exact equivalence. The purpose is to prevent overinterpretation of tiny numerical differences and to show the scale of unresolved temporal and meeting-level variation.
+
+\begin{table}[htbp]
+\centering
+\caption{Paired test differences against the calibrated market benchmark}\label{tab:predictive-full}
+\small
+\begin{tabular}{L{4.1cm} L{2.5cm} R{2.3cm} R{4.3cm}}
+\toprule
+\textbf{Candidate} & \textbf{Metric} & \textbf{Difference} & \textbf{95\% interval} \\
+\midrule
+Fundamental logit & Log loss & $+0.214983$ & $[+0.170234,+0.260564]$ \\
+Fundamental logit & Brier loss & $+0.050562$ & $[+0.037306,+0.063952]$ \\
+Fundamental logit & Top-one rate & $-5.800$ pp & $[-9.122,-2.532]$ pp \\
+\addlinespace
+Fundamental LightGBM & Log loss & $+0.214035$ & $[+0.167856,+0.260613]$ \\
+Fundamental LightGBM & Brier loss & $+0.050418$ & $[+0.036758,+0.064291]$ \\
+Fundamental LightGBM & Top-one rate & $-5.220$ pp & $[-8.305,-2.191]$ pp \\
+\addlinespace
+Combined logit & Log loss & $-0.000328$ & $[-0.008867,+0.008288]$ \\
+Combined logit & Brier loss & $+0.000650$ & $[-0.002300,+0.003498]$ \\
+Combined logit & Top-one rate & $+0.696$ pp & $[-0.692,+2.100]$ pp \\
+\addlinespace
+Combined LightGBM & Log loss & $+0.014841$ & $[+0.000977,+0.029003]$ \\
+Combined LightGBM & Brier loss & $+0.003315$ & $[-0.000887,+0.007564]$ \\
+Combined LightGBM & Top-one rate & $-0.116$ pp & $[-2.191,+2.050]$ pp \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Reproducibility Guide}\label{app:reproduction}
+The source package separates collection, analysis, visualization, and reporting. The \texttt{data/} directory contains fixture, raw race, raw runner, coverage, manifest, and engineered-panel files; \texttt{results/} contains every table used in the report; and \texttt{figures/} contains the rendered ECharts images. The \texttt{report/} directory contains the split \LaTeX{} files and bibliography. Original compressed HTML pages are retained in the working archive but are not required to rerun the analysis from the included raw CSV files.
+
+The principal reproduction commands are shown below. Collection requires network access and should be run only when refreshing the source data. Analysis and figure generation can run from the included data files. Compiling from \texttt{report/} preserves the relative path to \texttt{figures/}. Package versions and operating-system details should be recorded in the final archive before submission.
+
+\begin{verbatim}
+# Optional: refresh official data (network required)
+python3 scripts/collect_hkjc.py --workers 16
+
+# Rebuild features, models, metrics, predictions, and betting outputs
+python3 scripts/analyze.py
+
+# Render static ECharts figures
+python3 scripts/make_figures.py
+
+# Compile the report from the report directory
+cd report
+tectonic -X compile main.tex
+\end{verbatim}
+
+\begin{table}[htbp]
+\centering
+\caption{Key reproducibility artifacts}\label{tab:artifacts}
+\small
+\begin{tabularx}{\textwidth}{L{5.6cm} Y}
+\toprule
+\textbf{Path} & \textbf{Contents} \\
+\midrule
+\path{data/collection_manifest.json} & Retrieval time, seasons, meeting/race/runner totals, candidate pages, and request errors. \\
+\path{data/coverage.csv} & Scheduled and collected race counts for every fixture meeting. \\
+\path{data/runners_raw.csv} & Source-linked runner records, final odds, and official winner dividends. \\
+\path{data/model_runners.csv} & Clean starter panel with chronological features for every included runner. \\
+\path{results/model_metrics.csv} & Validation/test scores and fitted temperatures. \\
+\path{results/test_predictions.csv} & Runner-level probabilities for every model on the untouched test season. \\
+\path{results/predictive_comparison_intervals.csv} & Paired meeting-bootstrap differences against market. \\
+\path{results/betting_summary.csv} & Stakes, profits, ROI, strike rate, drawdown, and clustered ROI intervals. \\
+\path{results/bets_*.csv} & Auditable selection-level betting ledgers. \\
+\path{results/betting_sensitivity.csv} & Complete edge/odds-cap grid with sample sizes. \\
+\path{results/feature_importance.json} & LightGBM gain values and conditional-logit coefficients. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Administrative Submission Checklist}\label{app:admin}
+The following checklist comes from the interim-report instructions supplied for this capstone. It is included for project management and does not replace official course guidance. All placeholders on the title page must be completed and the output file renamed before submission. The supervisor should review the actual final upload candidate, not merely an earlier draft.
+
+\begin{tcolorbox}[capstonebox]
+\begin{enumerate}
+    \item Replace \placeholder{STUDENT NAME}, \placeholder{STUDENT ID}, \placeholder{SUPERVISOR NAME}, department, and institution placeholders.
+    \item Obtain supervisor review and incorporate agreed corrections before submission.
+    \item Rename the file using \path{(Your Name) (Student ID)_Capstone Interim report.xxx}, consistent with the supplied example \path{ChanTaiMan12345678D_Capstone Interim report.pdf}.
+    \item Submit the PDF or Word document through the Final Year Project System by \textbf{26 November 2026 at 15:00}.
+    \item Upload through Blackboard for Turnitin and allow sufficient report-generation time. The stated acceptable similarity is \textbf{30\%}.
+    \item Submit the separate Capstone Project Interim Report Declaration Form signed by the student and supervisor(s), as required.
+    \item Retain the source package, result manifests, and submitted PDF for audit and final-project continuity.
+    \item Prepare for the eventual \textbf{8--10 minute presentation followed by Q\&A}; rehearse timing and maintain backup evidence slides.
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[cautionbox]
+\textbf{Before using this document as the official submission.} The student must verify the current course instructions, provide identity details, complete institutional declarations, and obtain supervisor approval. The analytical content is complete for the interim stage, but no institutional template or grading rubric was supplied for this draft.
+\end{tcolorbox}

@@ -1,0 +1,67 @@
+Meetings: 444; candidate race pages: 4703
+Processed 100/4703; races=89; runners=1070; errors=0
+Processed 200/4703; races=172; runners=2079; errors=0
+Processed 300/4703; races=263; runners=3171; errors=0
+Processed 400/4703; races=355; runners=4292; errors=0
+Processed 500/4703; races=447; runners=5404; errors=0
+Processed 600/4703; races=536; runners=6474; errors=0
+Processed 700/4703; races=626; runners=7539; errors=0
+Processed 800/4703; races=718; runners=8618; errors=0
+Processed 900/4703; races=808; runners=9722; errors=0
+Processed 1000/4703; races=898; runners=10801; errors=0
+Processed 1100/4703; races=980; runners=11780; errors=0
+Processed 1200/4703; races=1071; runners=12903; errors=0
+Processed 1300/4703; races=1161; runners=14030; errors=0
+Processed 1400/4703; races=1252; runners=15164; errors=0
+Processed 1500/4703; races=1341; runners=16249; errors=0
+Processed 1600/4703; races=1432; runners=17352; errors=0
+Processed 1700/4703; races=1523; runners=18470; errors=0
+Processed 1800/4703; races=1613; runners=19547; errors=0
+Processed 1900/4703; races=1703; runners=20609; errors=0
+Processed 2000/4703; races=1783; runners=21541; errors=0
+Processed 2100/4703; races=1874; runners=22631; errors=0
+Processed 2200/4703; races=1963; runners=23706; errors=0
+Processed 2300/4703; races=2053; runners=24812; errors=0
+Processed 2400/4703; races=2145; runners=25931; errors=0
+Processed 2500/4703; races=2235; runners=27042; errors=0
+Processed 2600/4703; races=2327; runners=28135; errors=0
+Processed 2700/4703; races=2416; runners=29211; errors=0
+Processed 2800/4703; races=2506; runners=30322; errors=0
+Processed 2900/4703; races=2597; runners=31342; errors=0
+Processed 3000/4703; races=2684; runners=32428; errors=0
+Processed 3100/4703; races=2774; runners=33561; errors=0
+Processed 3200/4703; races=2866; runners=34712; errors=0
+Processed 3300/4703; races=2956; runners=35850; errors=0
+Processed 3400/4703; races=3047; runners=36953; errors=0
+Processed 3500/4703; races=3140; runners=38076; errors=0
+Processed 3600/4703; races=3228; runners=39150; errors=0
+Processed 3700/4703; races=3319; runners=40304; errors=0
+Processed 3800/4703; races=3397; runners=41274; errors=0
+Processed 3900/4703; races=3488; runners=42434; errors=0
+Processed 4000/4703; races=3578; runners=43567; errors=0
+Processed 4100/4703; races=3668; runners=44721; errors=0
+Processed 4200/4703; races=3759; runners=45863; errors=0
+Processed 4300/4703; races=3849; runners=46989; errors=0
+Processed 4400/4703; races=3940; runners=48115; errors=0
+Processed 4500/4703; races=4031; runners=49247; errors=0
+Processed 4600/4703; races=4122; runners=50378; errors=0
+Processed 4700/4703; races=4214; runners=51553; errors=0
+Processed 4703/4703; races=4214; runners=51553; errors=0
+/mnt/agents/output/Horse_Racing_FYP/scripts/collect_hkjc.py:237: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "retrieved_utc": datetime.utcnow().isoformat() + "Z",
+{
+  "retrieved_utc": "2026-11-19T05:39:46.460670Z",
+  "source": "The Hong Kong Jockey Club official local results and fixture pages",
+  "seasons": [
+    "2021/22",
+    "2022/23",
+    "2023/24",
+    "2024/25",
+    "2025/26"
+  ],
+  "meetings": 444,
+  "races": 4214,
+  "runners": 51553,
+  "candidate_pages": 4703,
+  "errors": 0
+}

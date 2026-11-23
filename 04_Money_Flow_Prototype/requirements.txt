@@ -1,0 +1,2 @@
+# Live collection only; offline calculations and tests otherwise use the Python standard library.
+requests==2.32.3

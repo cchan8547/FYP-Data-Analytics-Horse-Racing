@@ -1,0 +1,174 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage[numbers,super,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+\geometry{top=2.35cm,bottom=2.35cm,left=2.55cm,right=2.35cm,headheight=22pt}
+\definecolor{navy}{HTML}{173F5F}
+\definecolor{teal}{HTML}{1B998B}
+\definecolor{gold}{HTML}{E9C46A}
+\definecolor{orange}{HTML}{E76F51}
+\definecolor{red}{HTML}{C94452}
+\definecolor{ink}{HTML}{24313D}
+\definecolor{soft}{HTML}{F3F6F8}
+\definecolor{midgrey}{HTML}{6B7280}
+
+\setstretch{1.12}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.62em}
+\setlength{\emergencystretch}{2em}
+\sisetup{detect-all,group-separator={,},group-minimum-digits=4}
+\titleformat{\section}{\Large\bfseries\color{navy}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\color{navy}}{\thesubsection}{0.65em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{ink}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.55em}
+\titlespacing*{\subsection}{0pt}{1.0em}{0.4em}
+\captionsetup{font=small,labelfont={bf,color=navy},skip=6pt}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.28em,topsep=0.3em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.28em,topsep=0.3em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcommand{\source}[1]{\par\vspace{2pt}\footnotesize\color{midgrey}Source: #1\par}
+\newcommand{\placeholder}[1]{\textcolor{red}{\textbf{[#1]}}}
+
+\tcbset{
+  capstonebox/.style={enhanced,breakable,colback=soft,colframe=navy,boxrule=0.7pt,
+    arc=1.5mm,left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,before skip=10pt,after skip=10pt},
+  findingbox/.style={enhanced,breakable,colback=teal!7,colframe=teal,boxrule=0.7pt,
+    arc=1.5mm,left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,before skip=10pt,after skip=10pt},
+  cautionbox/.style={enhanced,breakable,colback=orange!7,colframe=orange,boxrule=0.7pt,
+    arc=1.5mm,left=3mm,right=3mm,top=2.2mm,bottom=2.2mm,before skip=10pt,after skip=10pt}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{midgrey}Data Analytics for Horse Racing}
+\fancyhead[R]{\small\color{midgrey}Capstone Interim Report}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{navy}\leaders\hrule height \headrulewidth\hfill}}
+
+\graphicspath{{../figures/}{figures/}}
+
+\usepackage{xurl}
+\usepackage[
+    colorlinks=true,
+    linkcolor=navy,
+    citecolor=darkgray,
+    urlcolor=teal,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    unicode=true
+]{hyperref}
+\hypersetup{
+    pdftitle={Data Analytics for Horse Racing: Prediction and WIN-Betting Evaluation},
+    pdfauthor={[Student Name]},
+    pdfsubject={Capstone Project Interim Report},
+    pdfkeywords={horse racing, conditional logit, LightGBM, calibration, betting evaluation, Hong Kong}
+}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{8mm}
+{\color{navy}\rule{\textwidth}{2.2pt}}
+\vspace{12mm}
+\begin{center}
+    {\small\scshape\color{midgrey} Capstone Project Interim Report\par}
+    \vspace{9mm}
+    {\Huge\bfseries\color{navy} Data Analytics for\\[2mm] Horse Racing\par}
+    \vspace{6mm}
+    {\Large\color{ink} Race-Probability Prediction and\\WIN-Betting Evaluation in Hong Kong\par}
+    \vspace{12mm}
+    \begin{tcolorbox}[width=0.86\textwidth,colback=soft,colframe=navy,arc=2mm,boxrule=0.8pt]
+    \centering
+    \begin{tabular}{ll}
+        \textbf{Student:} & \placeholder{STUDENT NAME} \\
+        \textbf{Student ID:} & \placeholder{STUDENT ID} \\
+        \textbf{Supervisor:} & \placeholder{SUPERVISOR NAME} \\
+        \textbf{Department:} & \placeholder{DEPARTMENT / PROGRAMME} \\
+        \textbf{Institution:} & \placeholder{UNIVERSITY} \\
+        \textbf{Report date:} & 19 November 2026 \\
+        \textbf{Submission deadline:} & 26 November 2026, 15:00 \\
+    \end{tabular}
+    \end{tcolorbox}
+    \vfill
+    {\small\color{midgrey} Interim empirical analysis based on five completed Hong Kong racing seasons\par}
+    \vspace{3mm}
+    {\small\color{midgrey} Compiled from reproducible \LaTeX{} source\par}
+    \vspace{8mm}
+    {\color{navy}\rule{0.55\textwidth}{0.8pt}}
+\end{center}
+\vfill
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+\input{abstract}
+\clearpage
+
+\tableofcontents
+\clearpage
+\begingroup
+\small
+\setstretch{0.92}
+\listoffigures
+\listoftables
+\endgroup
+\clearpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\input{01_introduction}
+\input{02_literature}
+\input{03_data}
+\input{04_methodology}
+\input{05_results}
+\input{06_discussion}
+\input{07_plan}
+\input{08_conclusion}
+
+\clearpage
+\begingroup
+\small
+\setstretch{0.96}
+\setlength{\parskip}{0.25em}
+\bibliography{references}
+\endgroup
+
+\clearpage
+\appendix
+\input{09_appendices}
+
+\end{document}

@@ -1,0 +1,30 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$grey", bold: true, letterSpacing: 1.2, wrap: false, text: "BACKUP 3 / FEATURE IMPORTANCE"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 860, 43]
+    content: {style: "$title", fontSize: 31, wrap: false, text: "Market variables account for 78.79% of combined LightGBM gain"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: importance-chart
+    elementType: image
+    bounds: [48, 116, 864, 356]
+    src: "media/feature_importance.png"
+    fit: {mode: contain}
+  - elementId: importance-note
+    elementType: text
+    bounds: [48, 475, 864, 18]
+    content: {fontSize: 12, color: "$ink", align: [center, middle], wrap: false, text: "Fundamental leaders: last-three form 24.27% · last finish 13.94% · jockey mean finish 9.64%. Gain importance is associational, not causal."}
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 509, 760, 14]
+    content: {style: "$source", wrap: false, text: "Source: feature_importance.json. Percentages are shares of total LightGBM split gain within each specification."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "13 / 14"}

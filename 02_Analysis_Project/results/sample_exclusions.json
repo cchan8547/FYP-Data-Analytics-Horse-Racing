@@ -1,0 +1,19 @@
+{
+  "official_races": 4214,
+  "official_result_rows": 51553,
+  "withdrawn_rows_removed": 404,
+  "races_with_withdrawals": 383,
+  "official_starters": 51149,
+  "dead_heat_races": 7,
+  "excluded_races": 7,
+  "valid_races": 4207,
+  "exclusion_reason_counts": {
+    "not_exactly_one_winner": 7,
+    "field_outside_4_14": 0,
+    "incomplete_odds": 0,
+    "incomplete_draw": 0,
+    "incomplete_actual_weight": 0,
+    "missing_distance": 0,
+    "missing_winner_dividend": 0
+  }
+}

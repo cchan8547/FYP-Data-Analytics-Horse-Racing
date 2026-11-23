@@ -1,0 +1,109 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$teal", bold: true, letterSpacing: 1.2, wrap: false, text: "03 / RACE-WISE MODELING"}
+  - elementId: timing
+    elementType: text
+    bounds: [850, 18, 62, 18]
+    content: {fontSize: 11, color: "$grey", bold: true, align: [right, middle], wrap: false, text: "1:15"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 850, 43]
+    content: {style: "$title", fontSize: 31, wrap: false, text: "One race, one probability vector—not independent binary labels"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: formula-label
+    elementType: text
+    bounds: [48, 119, 450, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "CONDITIONAL-LOGIT PROBABILITY"}
+  - elementId: formula
+    elementType: text
+    bounds: [48, 151, 480, 60]
+    content:
+      fontSize: 28
+      color: "$navy"
+      align: [left, middle]
+      text: |
+        <p>\(p_{ri}=\frac{\exp(x_{ri}^{T}\beta)}{\sum_j\exp(x_{rj}^{T}\beta)}\)</p>
+  - elementId: formula-note
+    elementType: text
+    bounds: [48, 235, 465, 42]
+    content:
+      fontSize: 16
+      color: "$ink"
+      lineHeight: 1.3
+      text: "Exactly one winner; probabilities are constrained to sum to one within every race."
+  - elementId: objective
+    elementType: text
+    bounds: [48, 288, 465, 73]
+    content:
+      fontSize: 15
+      color: "$ink"
+      lineHeight: 1.35
+      text: |
+        <p><strong>Fit:</strong> winner negative log likelihood + ridge penalty</p>
+        <p><strong>Market benchmark:</strong> \(q_{ri}\propto 1/d_{ri}\)</p>
+        <p><strong>Calibration:</strong> temperature fitted on validation only</p>
+  - {elementId: method-divider, elementType: shape, bounds: [545, 122, 1, 238], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: candidates-label
+    elementType: text
+    bounds: [580, 119, 332, 22]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "FOUR CANDIDATE SPECIFICATIONS"}
+  - elementId: candidates
+    elementType: text
+    bounds: [580, 153, 332, 202]
+    content:
+      fontSize: 15
+      color: "$ink"
+      lineHeight: 1.28
+      text: |
+        <p><strong>Fundamental Logit</strong> · histories + race covariates; no odds</p>
+        <p style="margin-top:9px"><strong>Fundamental LightGBM</strong> · same information; nonlinear comparator</p>
+        <p style="margin-top:9px"><strong>Combined Logit</strong> · fundamentals + log market probability</p>
+        <p style="margin-top:9px"><strong>Combined LightGBM</strong> · also odds, market rank, overround</p>
+  - {elementId: leakage-rule, elementType: shape, bounds: [48, 377, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: leakage-label
+    elementType: text
+    bounds: [48, 396, 142, 20]
+    content: {fontSize: 11, color: "$orange", bold: true, letterSpacing: 1, wrap: false, text: "LEAKAGE CONTROL"}
+  - elementId: leak-1
+    elementType: text
+    bounds: [203, 390, 184, 54]
+    content: {fontSize: 15, color: "$ink", bold: true, align: [center, middle], text: "Aggregate each entity to entity–race level"}
+  - elementId: leak-arrow-1
+    elementType: line
+    bounds: [401, 416, 52, 2]
+    viewBox: [52, 2]
+    points: "0,1 52,1"
+    arrow: [null, stealth]
+    border: {style: solid, width: 1.5, color: "$teal"}
+  - elementId: leak-2
+    elementType: text
+    bounds: [466, 390, 174, 54]
+    content: {fontSize: 15, color: "$ink", bold: true, align: [center, middle], text: "Shift records chronologically before joining"}
+  - elementId: leak-arrow-2
+    elementType: line
+    bounds: [652, 416, 52, 2]
+    viewBox: [52, 2]
+    points: "0,1 52,1"
+    arrow: [null, stealth]
+    border: {style: solid, width: 1.5, color: "$teal"}
+  - elementId: leak-3
+    elementType: text
+    bounds: [719, 390, 193, 54]
+    content: {fontSize: 15, color: "$ink", bold: true, align: [center, middle], text: "Only earlier races inform the current runner"}
+  - elementId: leakage-note
+    elementType: text
+    bounds: [203, 452, 709, 22]
+    content: {fontSize: 12, color: "$grey", align: [center, middle], wrap: false, text: "Prevents a trainer’s or jockey’s other mounts in the same race from revealing current outcomes."}
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 509, 760, 14]
+    content: {style: "$source", wrap: false, text: "Source: report Section 4 and scripts/analyze.py; fundamental models contain no odds-derived information."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "04 / 14"}

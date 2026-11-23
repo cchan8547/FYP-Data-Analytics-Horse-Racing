@@ -1,0 +1,12 @@
+# Verified analysis runtime: Python 3.12.12 on Linux x86_64 (glibc 2.36).
+# Report engine: Tectonic 0.17.0+20260731.
+# Figure rendering also requires Playwright Chromium or an installed Chrome/Chromium browser.
+# The ECharts 5.6.0 bundle is included locally at scripts/vendor/echarts.min.js.
+numpy==2.2.5
+pandas==2.3.2
+scipy==1.16.2
+scikit-learn==1.7.2
+lightgbm==4.6.0
+requests==2.32.3
+beautifulsoup4==4.15.0
+playwright==1.62.0

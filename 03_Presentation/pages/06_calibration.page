@@ -1,0 +1,68 @@
+pageType: content
+background: {type: solid, color: "$paper"}
+elements:
+  - elementId: section
+    elementType: text
+    bounds: [48, 18, 420, 18]
+    content: {fontSize: 10, color: "$teal", bold: true, letterSpacing: 1.2, wrap: false, text: "04 / CALIBRATION + UNCERTAINTY"}
+  - elementId: timing
+    elementType: text
+    bounds: [850, 18, 62, 18]
+    content: {fontSize: 11, color: "$grey", bold: true, align: [right, middle], wrap: false, text: "0:50"}
+  - elementId: title
+    elementType: text
+    bounds: [48, 43, 850, 43]
+    content: {style: "$title", fontSize: 32, wrap: false, text: "Reliability is strong; incremental improvement is unresolved"}
+  - {elementId: header-rule, elementType: shape, bounds: [48, 96, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: reliability-chart
+    elementType: image
+    bounds: [48, 116, 602, 351]
+    src: "media/reliability.png"
+    fit: {mode: contain}
+  - elementId: ece-label
+    elementType: text
+    bounds: [690, 122, 222, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "TEST CALIBRATION"}
+  - elementId: ece-value
+    elementType: text
+    bounds: [690, 151, 222, 43]
+    content: {fontSize: 34, color: "$navy", bold: true, wrap: false, text: "ECE 0.00574"}
+  - elementId: ece-note
+    elementType: text
+    bounds: [690, 196, 222, 41]
+    content: {fontSize: 14, color: "$ink", lineHeight: 1.25, text: "Market ECE = 0.00573. Curves follow the diagonal."}
+  - {elementId: right-rule, elementType: shape, bounds: [690, 251, 222, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: paired-label
+    elementType: text
+    bounds: [690, 268, 222, 20]
+    content: {fontSize: 11, color: "$teal", bold: true, letterSpacing: 1, wrap: false, text: "COMBINED LOGIT − MARKET"}
+  - elementId: paired
+    elementType: text
+    bounds: [690, 299, 222, 117]
+    content:
+      fontSize: 14
+      color: "$ink"
+      lineHeight: 1.35
+      text: |
+        <p><strong>Log loss</strong> −0.0003</p>
+        <p>[−0.0089, +0.0083]</p>
+        <p style="margin-top:8px"><strong>Top-one</strong> +0.70 pp</p>
+        <p>[−0.69, +2.10] pp</p>
+  - elementId: zero-conclusion
+    elementType: text
+    bounds: [690, 425, 222, 43]
+    content:
+      fontSize: 16
+      color: "$orange"
+      bold: true
+      lineHeight: 1.25
+      text: "All three paired intervals include zero."
+  - {elementId: footer-rule, elementType: shape, bounds: [48, 499, 864, 1], shapeName: rect, fill: {type: solid, color: "#CFD8D5"}}
+  - elementId: source
+    elementType: text
+    bounds: [48, 507, 790, 18]
+    content: {style: "$source", wrap: false, text: "Source: reliability.csv and predictive_comparison_intervals.csv; runner-level quantile bins; 5,000 paired meeting-cluster resamples."}
+  - elementId: page-no
+    elementType: text
+    bounds: [874, 506, 38, 18]
+    content: {fontSize: 10, color: "$grey", align: [right, middle], wrap: false, text: "06 / 14"}

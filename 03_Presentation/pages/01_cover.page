@@ -1,0 +1,109 @@
+pageType: cover
+background: {type: solid, color: "$navy"}
+elements:
+  - {elementId: cover-gold-edge, elementType: shape, bounds: [0, 0, 12, 540], shapeName: rect, fill: {type: solid, color: "$gold"}}
+  - elementId: cover-kicker
+    elementType: text
+    bounds: [56, 38, 560, 22]
+    content:
+      fontSize: 12
+      color: "$gold"
+      bold: true
+      letterSpacing: 1.4
+      wrap: false
+      text: "CAPSTONE PROJECT · INTERIM PRESENTATION"
+  - elementId: cover-timing
+    elementType: text
+    bounds: [850, 38, 62, 18]
+    content: {fontSize: 11, color: "#B8C8CF", bold: true, align: [right, middle], wrap: false, text: "0:30"}
+  - elementId: cover-title
+    elementType: text
+    bounds: [56, 92, 570, 122]
+    content:
+      fontSize: 49
+      color: "$white"
+      bold: true
+      lineHeight: 1.08
+      text: |
+        Data Analytics for
+        Horse Racing
+  - elementId: cover-subtitle
+    elementType: text
+    bounds: [56, 235, 540, 66]
+    content:
+      fontSize: 22
+      color: "#E5ECEF"
+      lineHeight: 1.3
+      text: |
+        Race-probability prediction and WIN-betting
+        evaluation in Hong Kong
+  - elementId: cover-rule
+    elementType: shape
+    bounds: [56, 326, 500, 2]
+    shapeName: rect
+    fill: {type: solid, color: "$teal"}
+  - elementId: cover-identity
+    elementType: text
+    bounds: [56, 348, 535, 72]
+    content:
+      fontSize: 14
+      color: "#D8E3E8"
+      lineHeight: 1.45
+      text: |
+        <p><span style="color:$gold">[STUDENT NAME] · [STUDENT ID]</span></p>
+        <p>Supervisor: [SUPERVISOR NAME]</p>
+        <p>[DEPARTMENT / PROGRAMME] · [UNIVERSITY]</p>
+  - elementId: cover-data
+    elementType: text
+    bounds: [56, 462, 555, 30]
+    content:
+      fontSize: 16
+      color: "$gold"
+      bold: true
+      wrap: false
+      text: "4,207 races  ·  51,068 starters  ·  five completed seasons"
+  - elementId: cover-date
+    elementType: text
+    bounds: [56, 500, 560, 16]
+    content:
+      fontSize: 10
+      color: "#AFC0C8"
+      wrap: false
+      text: "Interim analysis: 2021/22–2025/26  ·  Replace bracketed identity fields before presenting"
+  - {elementId: track-outer, elementType: shape, bounds: [668, 86, 238, 326], shapeName: ellipse, border: {style: solid, width: 2, color: "#7895A4"}}
+  - {elementId: track-mid, elementType: shape, bounds: [688, 111, 198, 276], shapeName: ellipse, border: {style: solid, width: 1.4, color: "#54788B"}}
+  - {elementId: track-inner, elementType: shape, bounds: [710, 140, 154, 218], shapeName: ellipse, border: {style: solid, width: 1, color: "#3E6579"}}
+  - {elementId: track-finish, elementType: shape, bounds: [842, 78, 3, 342], shapeName: rect, fill: {type: solid, color: "$gold"}}
+  - elementId: track-finish-label
+    elementType: text
+    bounds: [814, 426, 65, 16]
+    content: {fontSize: 9, color: "$gold", bold: true, align: [center, middle], wrap: false, text: "FINISH"}
+  - {elementId: runner-1, elementType: shape, bounds: [824, 117, 28, 28], shapeName: ellipse, fill: {type: solid, color: "$teal"}}
+  - elementId: runner-1-no
+    elementType: text
+    bounds: [824, 117, 28, 28]
+    content: {fontSize: 12, color: "$white", bold: true, align: [center, middle], wrap: false, text: "1"}
+  - {elementId: runner-2, elementType: shape, bounds: [866, 194, 24, 24], shapeName: ellipse, fill: {type: solid, color: "$gold"}}
+  - elementId: runner-2-no
+    elementType: text
+    bounds: [866, 194, 24, 24]
+    content: {fontSize: 10, color: "$navy", bold: true, align: [center, middle], wrap: false, text: "2"}
+  - {elementId: runner-3, elementType: shape, bounds: [798, 359, 24, 24], shapeName: ellipse, fill: {type: solid, color: "#E5ECEF"}}
+  - elementId: runner-3-no
+    elementType: text
+    bounds: [798, 359, 24, 24]
+    content: {fontSize: 10, color: "$navy", bold: true, align: [center, middle], wrap: false, text: "3"}
+  - {elementId: runner-4, elementType: shape, bounds: [673, 246, 24, 24], shapeName: ellipse, fill: {type: solid, color: "#7895A4"}}
+  - elementId: runner-4-no
+    elementType: text
+    bounds: [673, 246, 24, 24]
+    content: {fontSize: 10, color: "$white", bold: true, align: [center, middle], wrap: false, text: "4"}
+  - elementId: cover-formula
+    elementType: text
+    bounds: [675, 466, 230, 24]
+    content:
+      fontSize: 15
+      color: "#D8E3E8"
+      align: [center, middle]
+      wrap: false
+      text: "probability  →  value  →  return"

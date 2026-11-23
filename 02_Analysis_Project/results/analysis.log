@@ -1,0 +1,39 @@
+Clean sample: 4207 races, 51068 runners
+Splits: [('2021/22', 2498, 29967), ('2024/25', 847, 10341), ('2025/26', 862, 10760)]
+/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/usr/local/lib/python3.12/site-packages/sklearn/utils/validation.py:2749: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+     split             model  temperature  log_loss    brier     top1      ece  runner_auc
+validation           Uniform     1.000000  2.491986 0.916250 0.128689 0.000000    0.537391
+validation            Market     0.919767  1.988639 0.805778 0.328217 0.003728    0.795359
+validation fundamental_logit     0.933381  2.200620 0.854705 0.250295 0.005520    0.729372
+validation  fundamental_lgbm     0.924581  2.213614 0.860124 0.233766 0.004757    0.725837
+validation    combined_logit     1.002603  2.001683 0.809926 0.323495 0.004459    0.791853
+validation     combined_lgbm     0.979683  2.010571 0.811939 0.323495 0.002173    0.790547
+      test           Uniform     1.000000  2.516217 0.918448 0.119490 0.000000    0.532478
+      test            Market     0.919767  2.032094 0.818815 0.286543 0.005729    0.791872
+      test fundamental_logit     0.933381  2.247077 0.869377 0.228538 0.006719    0.725146
+      test  fundamental_lgbm     0.924581  2.246129 0.869233 0.234339 0.003245    0.725044
+      test    combined_logit     1.002603  2.031766 0.819465 0.293503 0.005739    0.791983
+      test     combined_lgbm     0.979683  2.046935 0.822130 0.285383 0.006632    0.788018
+                  strategy  bets  meetings  stake_hkd  profit_hkd       roi  strike_rate  mean_odds  max_drawdown_hkd                                     roi_ci95
+   fundamental_logit value   833      88.0     8330.0     -2653.0 -0.318487     0.055222  16.562545            3035.5   [-0.5326689341096443, -0.0915882999906547]
+fundamental_logit top pick   862      88.0     8620.0     -2103.5 -0.244026     0.228538   4.761833            2171.0 [-0.34894796781959736, -0.13760894495412843]
+    fundamental_lgbm value   840      88.0     8400.0     -1203.0 -0.143214     0.061905  16.718333            2755.0  [-0.39160373049521396, 0.12248094160938305]
+ fundamental_lgbm top pick   862      88.0     8620.0     -1391.0 -0.161369     0.234339   4.840603            1763.5 [-0.27852997483661934, -0.03903620485442632]
+      combined_logit value   127      68.0     1270.0        91.0  0.071654     0.141732   9.512598             287.0   [-0.49559552845528454, 0.7719275210084037]
+   combined_logit top pick   862      88.0     8620.0     -1399.0 -0.162297     0.293503   3.163341            1525.0 [-0.25954166666666667, -0.07086932183954292]
+       combined_lgbm value   481      88.0     4810.0      -102.0 -0.021206     0.128898  10.365696             529.5    [-0.306081677062751, 0.28665011208868485]
+    combined_lgbm top pick   862      88.0     8620.0     -1482.5 -0.171984     0.285383   3.326566            1760.0  [-0.2723055405604358, -0.07130278769053344]
+      Favourite every race   862      88.0     8620.0     -1718.5 -0.199362     0.286543   3.104988            1718.5 [-0.29508225448138503, -0.10582088166655226]
+              Every runner 10760       NaN   107600.0    -25342.5 -0.235525     0.080112  32.107361               NaN                                          NaN
+Primary model: combined_logit
