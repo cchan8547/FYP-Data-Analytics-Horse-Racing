@@ -50,9 +50,9 @@ elements:
       color: "#D8E3E8"
       lineHeight: 1.45
       text: |
-        <p><span style="color:$gold">[STUDENT NAME] · [STUDENT ID]</span></p>
-        <p>Supervisor: [SUPERVISOR NAME]</p>
-        <p>[DEPARTMENT / PROGRAMME] · [UNIVERSITY]</p>
+        <p><span style="color:$gold">Chan Hui Man · 23087426D</span></p>
+        <p>Supervisor: Prof. Cedric Yiu</p>
+        <p>Department of Applied Mathematics</p>
   - elementId: cover-data
     elementType: text
     bounds: [56, 462, 555, 30]
@@ -69,7 +69,7 @@ elements:
       fontSize: 10
       color: "#AFC0C8"
       wrap: false
-      text: "Interim analysis: 2021/22–2025/26  ·  Replace bracketed identity fields before presenting"
+      text: "Interim analysis: 2021/22–2025/26  ·  Semester 1 findings and Semester 2 plan"
   - {elementId: track-outer, elementType: shape, bounds: [668, 86, 238, 326], shapeName: ellipse, border: {style: solid, width: 2, color: "#7895A4"}}
   - {elementId: track-mid, elementType: shape, bounds: [688, 111, 198, 276], shapeName: ellipse, border: {style: solid, width: 1.4, color: "#54788B"}}
   - {elementId: track-inner, elementType: shape, bounds: [710, 140, 154, 218], shapeName: ellipse, border: {style: solid, width: 1, color: "#3E6579"}}

@@ -21,7 +21,7 @@ The empirical report and slides have already been completed and checked. The mon
 |---|---|
 | `01_Report/` | Current 37-page Semester 1 interim report PDF. |
 | `02_Analysis_Project/` | LaTeX source, collection and analysis scripts, raw and engineered data, result tables, and figures. |
-| `03_Presentation/` | Editable 14-slide `.pptd` deck: ten timed main slides plus four Q&A backup slides, with page source and chart assets. |
+| `03_Presentation/` | Presentation-ready 14-slide `.pptx` plus editable `.pptd` source: ten timed main slides and four Q&A backup slides, with page source and chart assets. |
 | `04_Money_Flow_Prototype/` | Read-only public odds/pool collector, offline processing, synthetic example, tests, outputs, and its own detailed README. |
 | `FILE_MANIFEST.csv` | File sizes and SHA-256 hashes for transfer verification. |
 
@@ -43,14 +43,16 @@ Large HTML caches, repeated PDF-page QA renders, temporary Python bytecode, and 
 
 ### Presentation
 
-- Entry file: `03_Presentation/Horse_Racing_Capstone_9_Minute_Presentation.pptd`
+- PowerPoint file: `03_Presentation/ChanHuiMan23087426D_Capstone_Interim_Presentation.pptx`
+- Editable source: `03_Presentation/Horse_Racing_Capstone_9_Minute_Presentation.pptd`
 - Ten main slides are timed to nine minutes, followed by four Q&A backup slides.
 - The deck uses verified report charts and cautious interpretations.
 - Slide source files are in `03_Presentation/pages/`; chart assets are in `03_Presentation/media/`.
 - The included contact sheet is a visual preview, not the editable deliverable.
 - No speaker notes were added.
-- The deck previously passed validation with zero errors and zero warnings.
-- The same identity placeholders remain editable.
+- The deck passed validation with zero errors and zero warnings; the exported PowerPoint was also rendered and visually checked across all 14 slides.
+- The cover identifies Chan Hui Man (23087426D), supervisor Prof. Cedric Yiu, and the Department of Applied Mathematics.
+- The `.pptx` preserves the checked slide layouts for reliable playback; use the `.pptd` source for future text or layout edits.
 
 ### Money-flow prototype
 
